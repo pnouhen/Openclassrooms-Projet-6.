@@ -1,4 +1,4 @@
-//  API
+//  Récupération des travaux depuis le back-end
 async function fetchProject() {
   const tableauProject = await fetch("http://localhost:5678/api/works");
   const tableauProjectJson = await tableauProject.json();
@@ -18,5 +18,6 @@ async function fetchProject() {
     figcaption.innerText = tableauProjectJson[i].title;
   }
 }
-
 fetchProject();
+
+// Réalisation du filtre des travaux : Ajout des filtres pour afficher les travaux par catégorie 
