@@ -1,0 +1,6 @@
+const figure = document.createElement('figure')
+gallery.appendChild(figure)
+const img = document.createElement('img')
+figure.appendChild(img)
+const figcaption = document.createElement('figcaption')
+figure.appendChild(figcaption)
