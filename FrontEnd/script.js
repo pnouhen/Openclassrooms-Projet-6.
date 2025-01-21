@@ -31,15 +31,9 @@ const portfolio = document.getElementById("portfolio");
 portfolio.appendChild(gallery);
 // Création et mise en place de la div
 const filter = document.createElement("div");
+filter.classList.add('portfolioFilter')
 portfolio.appendChild(filter);
 portfolio.insertBefore(filter, gallery);
-// Création de "Filtes"
-const filterText = document.createElement("p");
-filter.appendChild(filterText);
-filterText.textContent = "Filtres :";
-// Création de la liste
-const buttonList = document.createElement("ul");
-filter.appendChild(buttonList);
 // Création des buttons
 async function filterFunction() {
   // Récuperation du tableau
@@ -54,10 +48,8 @@ async function filterFunction() {
   }
   // Afficher les catégories du tableau
   for (i = 0; i < categories.length; i++) {
-    const listButton = document.createElement("li");
-    buttonList.appendChild(listButton);
     const button = document.createElement("button");
-    listButton.appendChild(button);
+    filter.appendChild(button);
     button.textContent = categories[i];
  
   button.addEventListener("click", () => {
