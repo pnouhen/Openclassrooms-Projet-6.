@@ -2,28 +2,30 @@
 async function apiWorks(){
   const tableauWorks = await fetch("http://localhost:5678/api/works");
   const tableauWorksJson = await tableauWorks.json();
-  return tableauWorksJson
-  
+  return tableauWorksJson 
 }
+// Association de la div
+const gallery = document.getElementById('gallery')
 //  Récupération des travaux depuis le back-end
-async function fetchProject() {
-  const tableauProject = await apiWorks()
-  console.log(tableauProject)
-  for (i = 0; i < tableauProject.length; i++) {
+async function projet() {
+  const projetTableau = await apiWorks()
+  for (i = 0; i < projetTableau.length; i++) {
     // Figure in Gallery
     const figure = document.createElement("figure");
-    const gallery = document.getElementById('gallery')
     gallery.appendChild(figure);
     // Image
     const img = document.createElement("img");
     figure.appendChild(img);
-    img.src = tableauProject[i].imageUrl;
+    img.src = projetTableau[i].imageUrl;
     // Title
     const figcaption = document.createElement("figcaption");
     figure.appendChild(figcaption);
-    figcaption.innerText = tableauProject[i].title;
+    figcaption.innerText = projetTableau[i].title;
 }
 }
-fetchProject();
+projet();
 
 // Réalisation du filtre des travaux : Ajout des filtres pour afficher les travaux par catégorie 
+async function projectFilter(params) {
+  
+}
