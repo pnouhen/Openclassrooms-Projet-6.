@@ -26,13 +26,8 @@ async function projet() {
 projet();
 
 // Réalisation du filtre des travaux : Ajout des filtres pour afficher les travaux par catégorie
-async function filterFunction() 
-{
-  // Récuperation du tableau
-  const filterTableau = await apiWorks();
-  console.log(filterTableau)
-  // Création de portfolio
-  const portfolio = document.getElementById("portfolio");
+// Création de portfolio
+const portfolio = document.getElementById("portfolio");
 portfolio.appendChild(gallery);
 // Création et mise en place de la div
 const filter = document.createElement("div");
@@ -41,13 +36,31 @@ portfolio.insertBefore(filter, gallery);
 // Création de "Filtes"
 const filterText = document.createElement("p");
 filter.appendChild(filterText);
-filterText.textContent= "Filtres :"
-// Création de input
-for(i=0;i < filterTableau.length; i++){
-const button = document.createElement("button");
-filter.appendChild(button);
-button.textContent = filterTableau[i].category.name
+filterText.textContent = "Filtres :";
+// Création de la liste
+const buttonList = document.createElement("ul");
+filter.appendChild(buttonList);
+// Création des buttons
+async function filterFunction() {
+  // Récuperation du tableau
+  const filterTableau = await apiWorks();
+  // Placer les catégories dans un tableau
+  let categories = [];
+  for (let i = 0; i < filterTableau.length; i++) {
+    const categoryName = filterTableau[i].category.name;
+    if (!categories.includes(categoryName)) {
+      categories.push(categoryName);
+    }
+  }
+  // Afficher les catégories du tableau
+for (i = 0; i < categories.length; i++) {
+  const listButton = document.createElement("li");
+  buttonList.appendChild(listButton);
+  const button = document.createElement("button");
+  listButton.appendChild(button);
+  button.textContent = categories[i];
+}
 }
 
-}
-filterFunction()
+
+filterFunction();
