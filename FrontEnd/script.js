@@ -26,13 +26,28 @@ async function projet() {
 projet();
 
 // Réalisation du filtre des travaux : Ajout des filtres pour afficher les travaux par catégorie
-const portfolio = document.getElementById("portfolio");
+async function filterFunction() 
+{
+  // Récuperation du tableau
+  const filterTableau = await apiWorks();
+  console.log(filterTableau)
+  // Création de portfolio
+  const portfolio = document.getElementById("portfolio");
 portfolio.appendChild(gallery);
+// Création et mise en place de la div
 const filter = document.createElement("div");
 portfolio.appendChild(filter);
 portfolio.insertBefore(filter, gallery);
+// Création de "Filtes"
 const filterText = document.createElement("p");
 filter.appendChild(filterText);
 filterText.textContent= "Filtres :"
-const input = document.createElement("input");
-filter.appendChild(input);
+// Création de input
+for(i=0;i < filterTableau.length; i++){
+const button = document.createElement("button");
+filter.appendChild(button);
+button.textContent = filterTableau[i].category.name
+}
+
+}
+filterFunction()
