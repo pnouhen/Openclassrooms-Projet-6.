@@ -6,22 +6,26 @@ async function apiWorks() {
 }
 // Association de la div
 const gallery = document.getElementById("gallery");
-
+// Function for fill the gallery
+function galleryFill(fill){
+  // Figure in Gallery
+  const figure = document.createElement("figure");
+  gallery.appendChild(figure);
+  // Image
+  const img = document.createElement("img");
+  figure.appendChild(img);
+  img.src = fill[i].imageUrl;
+  // Title
+  const figcaption = document.createElement("figcaption");
+  figure.appendChild(figcaption);
+  figcaption.innerText = fill[i].title;
+}
 //  Récupération des travaux depuis le back-end
 async function projet() {
   const projetTableau = await apiWorks();
+  
   for (i = 0; i < projetTableau.length; i++) {
-    // Figure in Gallery
-    const figure = document.createElement("figure");
-    gallery.appendChild(figure);
-    // Image
-    const img = document.createElement("img");
-    figure.appendChild(img);
-    img.src = projetTableau[i].imageUrl;
-    // Title
-    const figcaption = document.createElement("figcaption");
-    figure.appendChild(figcaption);
-    figcaption.innerText = projetTableau[i].title;
+galleryFill(projetTableau)
   }
 }
 projet();
@@ -59,20 +63,9 @@ async function filterFunction() {
     } else {
       for (i = 0; i < filterTableau.length; i++) {
         if(filterTableau[i].category.name === button.textContent){
-      // Figure in Gallery
-      const figure = document.createElement("figure");
-      gallery.appendChild(figure);
-      // Image
-      const img = document.createElement("img");
-      figure.appendChild(img);
-      img.src = filterTableau[i].imageUrl;
-      // Title
-      const figcaption = document.createElement("figcaption");
-      figure.appendChild(figcaption);
-      figcaption.innerText = filterTableau[i].title;
+          galleryFill(filterTableau)
     }}} 
 })
 }
 }
-
 filterFunction();
