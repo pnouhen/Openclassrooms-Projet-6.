@@ -69,3 +69,5 @@ async function filterFunction() {
 }
 }
 filterFunction();
+
+// Intégration du design de la page de formulaire
