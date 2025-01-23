@@ -1,8 +1,13 @@
 // Authentification de l’utilisateur
+const formConnexion = document.getElementById("formConnexion");
 
-// D'après le cours
-  const formConnexion = document.getElementById("formConnexion");
-// console.log(buttonConnexion)
-formConnexion.addEventListener("click", async function (event) {
-    event.preventDefault();
-    console.log("ok")})
+formConnexion.addEventListener("submit", function(event) {
+  event.preventDefault(); // Empêche la soumission par défaut du formulaire
+
+  const login = {
+    email: event.target.querySelector("[name=email]").value, 
+    mdp: event.target.querySelector("[name=mdp]").value, 
+  };
+
+  console.log(login); 
+});
