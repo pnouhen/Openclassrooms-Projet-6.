@@ -62,11 +62,18 @@ justify-content: space-around;
 	background-color: #1D6154;
 	color: #ffffff;
 }
-/* Ajouter header en JS */
-header{
+.headerEdition{
+    width: 100%;
+    height: 59px;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+background-color: black;
 }
-.headerConnexion{
-    width: 100%
+.fa-pen-to-square, .headerEdition p{
+    color: #ffffff;
+}
+.headerEdition p{
+    font-size: 16px;
 }
