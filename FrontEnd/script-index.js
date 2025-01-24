@@ -44,6 +44,9 @@ async function filterFunction() {
   const filterTableau = await apiWorks();
   // Placer les catégories dans un tableau
   let categories = ["Tous"];
+  buttonTous.textContent = 'Tous';
+buttonTous.classList.add('buttonFilter');
+document.body.appendChild(buttonTous);
   for (let i = 0; i < filterTableau.length; i++) {
     const categoryName = filterTableau[i].category.name;
     if (!categories.includes(categoryName)) {
@@ -55,18 +58,52 @@ async function filterFunction() {
     const button = document.createElement("button");
     filter.appendChild(button);
     button.textContent = categories[i];
- 
-  button.addEventListener("click", () => {
+   button.addEventListener("click", () => {
     gallery.innerHTML="";
+    const buttons = filter.querySelectorAll('button');
+    // Prendre tous les bouttons et appliquer la classe
+      buttons.forEach(b => b.classList.remove('buttonFilter')) 
     if(button.textContent === 'Tous'){
     projet()
     } else {
       for (i = 0; i < filterTableau.length; i++) {
         if(filterTableau[i].category.name === button.textContent){
           galleryFill(filterTableau)
-    }}} 
+          button.classList.add('buttonFilter') 
+    }
+  }} 
 })
 }
 }
 filterFunction();
 
+// Ajout de la barre de Edition après avoir le tocken
+const token = localStorage.getItem('authToken');
+console.log(token)
+if(token){
+  console.log("tocken trouvé")
+  // Recuperation des données et des classes
+  const header = document.getElementById("header");
+   const h1 = document.getElementById("h1");
+  const nav = document.getElementById("nav")
+  // Création de divEdition
+  const divEdition = document.createElement("div");
+  header.appendChild(divEdition);
+  divEdition.classList.add('headerEdition')
+  const iconEdition = document.createElement("i")
+  divEdition.appendChild(iconEdition)
+  iconEdition.classList.add("fa-regular","fa-pen-to-square")
+  const pEdition = document.createElement("p");
+  divEdition.appendChild(pEdition);
+  pEdition.textContent = "Mode édition"
+  // Regroupement des balises h1 et nav
+  const divH1Nav = document.createElement("div")
+  header.appendChild(divH1Nav)
+  divH1Nav.appendChild(h1)
+  divH1Nav.appendChild(nav)
+  divH1Nav.classList.add("divH1Nav")
+  // Propriétés CSS
+  header.style.display = "flex"
+  header.style.flexDirection = "column"
+  header.style.marginTop = 0
+  }

@@ -58,7 +58,7 @@ justify-content: space-around;
 	color: #1D6154;
 }
 
-.portfolioFilter button:hover{
+.portfolioFilter button.buttonFilter{
 	background-color: #1D6154;
 	color: #ffffff;
 }
