@@ -33,12 +33,20 @@ const formConnexion = document.getElementById("formConnexion");
 //   }
 // });
 // Ajout de la barre de connexion
+// Recuperation des données
 const header = document.getElementById("header");
 const h1 = document.getElementById("h1");
+const nav = document.getElementById("nav")
+// Création de divConnexion
 const divConnexion = document.createElement("div");
 header.appendChild(divConnexion);
 const pConnexion = document.createElement("p");
 divConnexion.appendChild(pConnexion);
 pConnexion.textContent = "Texte"
-header.insertBefore(divConnexion,h1);
 divConnexion.classList.add('headerConnexion')
+// Regroupement des balises h1 et nav
+const divH1Nav = document.createElement("div")
+header.appendChild(divH1Nav)
+divH1Nav.appendChild(h1)
+divH1Nav.appendChild(nav)
+
