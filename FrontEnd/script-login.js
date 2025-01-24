@@ -20,5 +20,12 @@ formConnexion.addEventListener("submit", async function(event) {
     });
 const reploginData = await replogin.json()
   console.log(replogin)
-
+  // Boucle pour la connexion
+  if (replogin.status === 200) {
+    console.log("Connexion");
+  } else if (replogin.status === 401) {  
+    console.log("Non autorisé");
+  } else {
+    console.log("Erreur inconnue : " + replogin.status);
+  }
 });
