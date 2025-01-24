@@ -101,69 +101,6 @@ a{
 li:hover, a:hover {
 	color: #B1663C;
 }
-#introduction {
-	display: flex;
-	align-items: center;
-}
-#introduction figure {
-	flex: 1
-}
-#introduction img {
-	display: block;
-	margin: auto;
-	width: 80%;
-}
-
-#introduction article {
-	flex: 1
-}
-#introduction h2 {
-	margin-bottom: 1em;
-}
-
-#introduction p {
-	margin-bottom: 0.5em;
-}
-#portfolio h2 {
-	text-align: center;
-	margin-bottom: 1em;
-}
-.portfolioFilter{
-	width: 60%;
-margin: 0 auto 2em auto;
-display: flex;
-justify-content: space-around;
-}
-.portfolioFilter button{
-	min-width: 100px;
-	padding: 0 20px 0 20px;
-	height: 37px;
-	border-radius: 60px;
-	border: 1px #1D6154 solid;
-	background-color: transparent;
-	font-size: 16px;
-	font-weight: 700;
-	font-family: 'Syne';
-	color: #1D6154;
-}
-
-.portfolioFilter button:hover{
-	background-color: #1D6154;
-	color: #ffffff;
-}
-
-.gallery {
-	width: 100%;
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-column-gap: 20px;
-	grid-row-gap: 20px;
-}
-
-.gallery img {
-	width: 100%;
-
-}
 .formulaire {
 	width: 50%;
 margin: auto;
