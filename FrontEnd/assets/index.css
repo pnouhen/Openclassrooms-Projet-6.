@@ -25,6 +25,20 @@
 	text-align: center;
 	margin-bottom: 1em;
 }
+
+.gallery {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-column-gap: 20px;
+	grid-row-gap: 20px;
+}
+
+.gallery img {
+	width: 100%;
+
+}
+/* Div présente en JS */
 .portfolioFilter{
 	width: 60%;
 margin: 0 auto 2em auto;
@@ -47,17 +61,4 @@ justify-content: space-around;
 .portfolioFilter button:hover{
 	background-color: #1D6154;
 	color: #ffffff;
-}
-
-.gallery {
-	width: 100%;
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-column-gap: 20px;
-	grid-row-gap: 20px;
-}
-
-.gallery img {
-	width: 100%;
-
 }
