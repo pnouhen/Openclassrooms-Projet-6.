@@ -23,6 +23,9 @@ const reploginData = await replogin.json()
   // Boucle pour la connexion
   if (replogin.status === 200) {
     console.log("Connexion");
+    localStorage.setItem('authToken', reploginData.token);
+    const storedToken = localStorage.getItem('authToken');
+    console.log(storedToken);
   } else if (replogin.status === 401) {  
     console.log("Non autorisé");
   } else {
