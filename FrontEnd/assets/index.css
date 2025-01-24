@@ -62,6 +62,11 @@ justify-content: space-around;
 	background-color: #1D6154;
 	color: #ffffff;
 }
+/* Ajouter header en JS */
+header{
+    display: flex;
+    flex-direction: column;
+}
 .headerConnexion{
     width: 100%
 }

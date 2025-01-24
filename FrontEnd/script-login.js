@@ -32,21 +32,24 @@ const formConnexion = document.getElementById("formConnexion");
 //     console.log("Erreur inconnue : " + replogin.status);
 //   }
 // });
-// Ajout de la barre de connexion
+// Ajout de la barre de Edition
 // Recuperation des données
-const header = document.getElementById("header");
-const h1 = document.getElementById("h1");
-const nav = document.getElementById("nav")
-// Création de divConnexion
-const divConnexion = document.createElement("div");
-header.appendChild(divConnexion);
-const pConnexion = document.createElement("p");
-divConnexion.appendChild(pConnexion);
-pConnexion.textContent = "Texte"
-divConnexion.classList.add('headerConnexion')
-// Regroupement des balises h1 et nav
-const divH1Nav = document.createElement("div")
-header.appendChild(divH1Nav)
-divH1Nav.appendChild(h1)
-divH1Nav.appendChild(nav)
-
+// const header = document.getElementById("header");
+// const h1 = document.getElementById("h1");
+// const nav = document.getElementById("nav")
+// // Création de divEdition
+// const divEdition = document.createElement("div");
+// header.appendChild(divEdition);
+// const iconEdition = document.createElement("i")
+// divEdition.appendChild(iconEdition)
+// iconEdition.classList.add("fa-regular","fa-pen-to-square")
+// const pEdition = document.createElement("p");
+// divEdition.appendChild(pEdition);
+// pEdition.textContent = "Mode édition"
+// divEdition.classList.add('headerEdition')
+// // Regroupement des balises h1 et nav
+// const divH1Nav = document.createElement("div")
+// header.appendChild(divH1Nav)
+// divH1Nav.appendChild(h1)
+// divH1Nav.appendChild(nav)
+// divH1Nav.classList.add("divH1Nav")
