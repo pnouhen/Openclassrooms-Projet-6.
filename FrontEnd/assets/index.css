@@ -39,13 +39,13 @@
 
 }
 /* Div présente en JS */
-.portfolioFilter{
+#portfolioFilter{
 	width: 60%;
 margin: 0 auto 2em auto;
 display: flex;
 justify-content: space-around;
 }
-.portfolioFilter button{
+#portfolioFilter button{
 	min-width: 100px;
 	padding: 0 20px 0 20px;
 	height: 37px;
@@ -58,7 +58,7 @@ justify-content: space-around;
 	color: #1D6154;
 }
 
-.portfolioFilter button.buttonFilter{
+#portfolioFilter button.buttonFilter{
 	background-color: #1D6154;
 	color: #ffffff;
 }
