@@ -62,7 +62,7 @@ async function filterFunction() {
   }
 }
 filterFunction();
-//  Fonction pour enlever les classes des autres filters
+//  Fonction pour enlever les classes des autres bouttons
 function buttonRemove() {
   const filter = document.getElementById("portfolioFilter");
   const buttons = filter.querySelectorAll("button");

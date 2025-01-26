@@ -4,10 +4,15 @@
 }
 
 /* Section Log In */
-.formulaire{
+#formulaire{
     height: 800px;
 }
-.mdpo{
+#mdpo{
 text-decoration-line: underline;
 text-align: center;
+}
+.MessageErreur{
+  text-align: center;  
+  margin : 1rem;
+  font-style: italic;
 }
