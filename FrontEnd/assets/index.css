@@ -1,79 +1,156 @@
 #introduction {
-	display: flex;
-	align-items: center;
+  display: flex;
+  align-items: center;
 }
 #introduction figure {
-	flex: 1
+  flex: 1;
 }
 #introduction img {
-	display: block;
-	margin: auto;
-	width: 80%;
+  display: block;
+  margin: auto;
+  width: 80%;
 }
 
 #introduction article {
-	flex: 1
+  flex: 1;
 }
 #introduction h2 {
-	margin-bottom: 1em;
+  margin-bottom: 1em;
 }
 
 #introduction p {
-	margin-bottom: 0.5em;
+  margin-bottom: 0.5em;
 }
 #portfolio h2 {
-	text-align: center;
-	margin-bottom: 1em;
+  text-align: center;
+  margin-bottom: 1em;
 }
 
 .gallery {
-	width: 100%;
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-column-gap: 20px;
-	grid-row-gap: 20px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
 }
 
 .gallery img {
-	width: 100%;
-
+  width: 100%;
+}
+/* Modal */
+.modalContainer {
+  display: none;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+}
+.modalContainer.active {
+  display: block;
+}
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #0000004d;
+}
+.modal {
+	width: 630px;
+  height: 90vh;
+	display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  border-radius: 10px;
+  background-color: #ffffff;
+  padding: 20px;
+}
+.modalBtn {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+}
+.fa-xmark {
+  width: 24px;
+  height: 24px;
+}
+#portfolio h3 {
+  width: 100%;
+  font-size: 26px;
+  text-align: center;
+  font-family: "Work Sans";
+}
+.modalImg{
+	width: 70%;
+	margin: 0 auto 2em auto;
+	display: flex;
+  flex-wrap: wrap;
+gap: 5px;
+padding-bottom: 50px;
+border-bottom: 1px solid #B3B3B3}
+.modalImg img{
+	width: 76px;
+}
+.modalImg figcaption{
+	display: none;
+}
+.modalAddPicture {
+  width: 237px;
+  height: 36px;
+  background: #1d6154;
+  margin: 0 auto 0 auto;
+  border-radius: 60px;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  color: #ffffff;
+  font-family: "Syne";
+  border: 0;
 }
 /* Div présente en JS */
-#portfolioFilter{
-	width: 60%;
-margin: 0 auto 2em auto;
-display: flex;
-justify-content: space-around;
+#portfolioFilter {
+  width: 60%;
+  margin: 0 auto 2em auto;
+  display: flex;
+  justify-content: space-around;
 }
-#portfolioFilter button{
-	min-width: 100px;
-	padding: 0 20px 0 20px;
-	height: 37px;
-	border-radius: 60px;
-	border: 1px #1D6154 solid;
-	background-color: transparent;
-	font-size: 16px;
-	font-weight: 700;
-	font-family: 'Syne';
-	color: #1D6154;
+#portfolioFilter button {
+  min-width: 100px;
+  padding: 0 20px 0 20px;
+  height: 37px;
+  border-radius: 60px;
+  border: 1px #1d6154 solid;
+  background-color: transparent;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: "Syne";
+  color: #1d6154;
 }
 
-#portfolioFilter button.buttonFilter{
-	background-color: #1D6154;
-	color: #ffffff;
+#portfolioFilter button.buttonFilter {
+  background-color: #1d6154;
+  color: #ffffff;
 }
-.headerEdition{
-    width: 100%;
-    height: 59px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-background-color: black;
+.headerEdition {
+  width: 100%;
+  height: 59px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  background-color: black;
 }
-.fa-pen-to-square, .headerEdition p{
-    color: #ffffff;
+.fa-pen-to-square,
+.headerEdition p {
+  color: #ffffff;
 }
-.headerEdition p{
-    font-size: 16px;
+.headerEdition p {
+  font-size: 16px;
 }

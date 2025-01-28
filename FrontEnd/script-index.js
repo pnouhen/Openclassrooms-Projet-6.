@@ -1,16 +1,16 @@
-let works = []
+let works = [];
 // Faire le lien avec l'API/works
 async function apiWorks() {
-  if(works.length === 0){
-   const tableauWorks = await fetch("http://localhost:5678/api/works");
-  works = await tableauWorks.json(); 
+  if (works.length === 0) {
+    const tableauWorks = await fetch("http://localhost:5678/api/works");
+    works = await tableauWorks.json();
   }
   return works;
 }
 // Association de la div
 const gallery = document.getElementById("gallery");
 // Function for fill the gallery
-function galleryFill(fill) {
+function galleryFill(gallery, fill) {
   // Figure in Gallery
   const figure = document.createElement("figure");
   gallery.appendChild(figure);
@@ -24,13 +24,13 @@ function galleryFill(fill) {
   figcaption.innerText = fill.title;
 }
 //  Récupération des travaux depuis le back-end
-async function projet() {
+async function projet(gallery) {
   const projetTableau = await apiWorks();
   projetTableau.forEach((item) => {
-    galleryFill(item);
+    galleryFill(gallery, item);
   });
 }
-projet();
+projet(gallery);
 // Réalisation du filtre des travaux : Ajout des filtres pour afficher les travaux par catégorie
 // Création des buttons
 const filter = document.getElementById("portfolioFilter");
@@ -111,11 +111,34 @@ if (token) {
   // Loginout
   const loginLink = document.querySelector('a[href="login.html"]');
   const loginItem = loginLink.parentElement;
-  loginItem.textContent = "logout"
-  console.log(loginItem)
-loginItem.addEventListener("click", () =>{
-  localStorage.removeItem("authToken");
-  loginItem.innerHTML = '<a href="login.html">Login</a>'
-  divEdition.style.display = "none";
-})
+  loginItem.textContent = "logout";
+  loginItem.addEventListener("click", () => {
+    localStorage.removeItem("authToken");
+    loginItem.innerHTML = '<a href="login.html">Login</a>';
+    divEdition.style.display = "none";
+  });
 }
+// Remplir la modale
+const modalImg = document.querySelector(".modalImg");
+const modeEdition = document.querySelector(".headerEdition");
+const modalContainer = document.querySelector(".modalContainer");
+const modalClose = document.querySelector(".modal-trigger");
+
+// Ouvrir la modale
+modeEdition.addEventListener("click", () => {
+  modalContainer.classList.toggle("active");
+  projet(modalImg);
+});
+
+// Fonction pour fermer la modale
+function toggleModal() {
+  modalContainer.classList.toggle("active");
+}
+modalClose.addEventListener("click", () => {
+  toggleModal();
+});
+// Empêcher la fermeture de la modale si on clique à l'intérieur de la fenêtre modale
+const modal = document.querySelector(".modal");
+modal.addEventListener("click", function (e) {
+  e.stopPropagation();
+});
