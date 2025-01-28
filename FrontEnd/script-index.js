@@ -1,13 +1,15 @@
+let works = []
 // Faire le lien avec l'API/works
 async function apiWorks() {
-  const tableauWorks = await fetch("http://localhost:5678/api/works");
-  const tableauWorksJson = await tableauWorks.json();
-  return tableauWorksJson;
+  if(works.length === 0){
+   const tableauWorks = await fetch("http://localhost:5678/api/works");
+  works = await tableauWorks.json(); 
+  }
+  return works;
 }
 // Association de la div
 const gallery = document.getElementById("gallery");
 // Function for fill the gallery
-
 function galleryFill(fill) {
   // Figure in Gallery
   const figure = document.createElement("figure");
