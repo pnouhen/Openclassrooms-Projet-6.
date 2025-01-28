@@ -24,7 +24,6 @@ formConnexion.addEventListener("submit", async function (event) {
   if (replogin.status === 200) {
     localStorage.setItem("authToken", reploginData.token);
     const storedToken = localStorage.getItem("authToken");
-    console.log("Tocken stocké", storedToken);
     window.location.href = "./index.html";
   } else {
     // Création de la constante pour faire apparaitre le message une fois

@@ -83,9 +83,7 @@ buttonTous.addEventListener("click", () => {
 
 // Ajout de la barre de Edition après avoir le tocken
 const token = localStorage.getItem("authToken");
-console.log(token);
 if (token) {
-  console.log("tocken trouvé");
   // Recuperation des données et des classes
   const header = document.getElementById("header");
   const h1 = document.getElementById("h1");
@@ -110,4 +108,14 @@ if (token) {
   header.style.display = "flex";
   header.style.flexDirection = "column";
   header.style.marginTop = 0;
+  // Loginout
+  const loginLink = document.querySelector('a[href="login.html"]');
+  const loginItem = loginLink.parentElement;
+  loginItem.textContent = "logout"
+  console.log(loginItem)
+loginItem.addEventListener("click", () =>{
+  localStorage.removeItem("authToken");
+  loginItem.innerHTML = '<a href="login.html">Login</a>'
+  divEdition.style.display = "none";
+})
 }
