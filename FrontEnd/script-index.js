@@ -55,7 +55,7 @@ async function filterFunction() {
         buttonRemove();
         for (i = 0; i < filterTableau.length; i++) {
           if (filterTableau[i].category.name === button.textContent) {
-            galleryFill(filterTableau[i]);
+            galleryFill(gallery,filterTableau[i]);
             button.classList.add("buttonFilter");
           }
         }
@@ -76,7 +76,7 @@ function buttonRemove() {
 const buttonTous = document.getElementById("buttonTous");
 buttonTous.addEventListener("click", () => {
   gallery.innerHTML = "";
-  projet();
+  projet(gallery);
   buttonRemove();
   buttonTous.classList.add("buttonFilter");
 });
@@ -142,3 +142,6 @@ const modal = document.querySelector(".modal");
 modal.addEventListener("click", function (e) {
   e.stopPropagation();
 });
+
+
+// Fonction pour Ajouter une photo
