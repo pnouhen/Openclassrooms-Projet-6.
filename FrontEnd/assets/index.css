@@ -114,6 +114,24 @@ border-bottom: 1px solid #B3B3B3}
   font-family: "Syne";
   border: 0;
 }
+.fa-trash-can{
+		position: absolute;
+	top: 0;
+	right:0;
+	margin: 5px 5px;
+	width: 17px;
+	height: 17px;
+	font-size: 10px;
+	color:white;
+	background-color: black;
+display: flex;
+justify-content: center;
+align-items: center;
+border-radius: 2px;
+}
+figure.active{
+	position: relative;
+}
 /* Div présente en JS */
 #portfolioFilter {
   width: 60%;

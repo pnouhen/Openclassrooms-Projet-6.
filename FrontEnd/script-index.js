@@ -13,6 +13,7 @@ const gallery = document.getElementById("gallery");
 function galleryFill(gallery, fill) {
   // Figure in Gallery
   const figure = document.createElement("figure");
+  figure.classList.add("figure")
   gallery.appendChild(figure);
   // Image
   const img = document.createElement("img");
@@ -128,8 +129,18 @@ const modalClose = document.querySelector(".modal-trigger");
 modeEdition.addEventListener("click", () => {
   modalContainer.classList.toggle("active");
   projet(modalImg);
+  modalTrash()
 });
-
+// Mise en place de la poubelle
+function modalTrash() {
+  const modalFigures = document.querySelectorAll(".figure");
+  console.log(modalFigures);
+  modalFigures.forEach(figure => {
+    const trash = document.createElement("i");
+    trash.classList.add('fa-solid', 'fa-trash-can');
+    figure.appendChild(trash);
+  });
+}
 // Fonction pour fermer la modale
 function toggleModal() {
   modalContainer.classList.toggle("active");
@@ -143,5 +154,3 @@ modal.addEventListener("click", function (e) {
   e.stopPropagation();
 });
 
-
-// Fonction pour Ajouter une photo
