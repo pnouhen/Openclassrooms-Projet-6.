@@ -13,7 +13,7 @@
   gap: 15px;
   background-color: black;
 }
-.headerEdition{
+.headerEdition {
   display: none;
 }
 .fa-pen-to-square,
@@ -64,49 +64,54 @@
 .gallery img {
   width: 100%;
 }
-/* Modal */
-.modalContainer {
+/* ModalPicture */
+.modalPicture, .modalAdd {
   display: none;
   position: fixed;
   top: 0;
   width: 100vw;
   height: 100vh;
 }
-.modalContainer.active {
+.modalPicture.active, .modalAdd.active {
   display: block;
 }
-.overlay {
+.modalOverlay {
   position: absolute;
   width: 100%;
   height: 100%;
   background: #0000004d;
 }
-.modal {
-	width: 630px;
+.modalDiv {
+  width: 630px;
   height: 90vh;
-	display: flex;
-  justify-content: space-between;
+  display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  
-  border-radius: 10px;
-  background-color: #ffffff;
+background-color: #ffffff;
   padding: 20px;
+  border-radius: 10px;
 }
-.modalBtn {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
+
+.modalPictureBtnReturn,.modalAddBtnReturn button{
   padding: 0;
   border: 0;
   background-color: transparent;
 }
-.fa-xmark {
-  width: 24px;
+.modalPictureBtnReturn,.modalAddBtnReturn{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.fa-xmark, .fa-arrow-left,.modalPictureBtnReturn,.modalAddBtnReturn{
   height: 24px;
+}
+.fa-xmark, .fa-arrow-left{
+  width: 24px;
 }
 #portfolio h3 {
   width: 100%;
@@ -114,21 +119,26 @@
   text-align: center;
   font-family: "Work Sans";
 }
-#modalImg{
-	width: 70%;
-	margin: 0 auto 2em auto;
-	display: flex;
+#modalPictureImg{
+  width: 70%;
+  display: flex;
   flex-wrap: wrap;
-gap: 5px;
-padding-bottom: 50px;
-border-bottom: 1px solid #B3B3B3}
-#modalImg img{
-	width: 76px;
+  gap: 5px;
 }
-#modalImg figcaption{
-	display: none;
+#modalPictureImg, .modalAddFormulaire{
+  margin: 0 auto 2em auto;
 }
-.modalAddPicture {
+#modalPictureImg, .modalAddFormulaire{
+  padding-bottom: 50px;
+  border-bottom: 1px solid #b3b3b3;
+}
+#modalPictureImg img {
+  width: 76px;
+}
+#modalPictureImg figcaption {
+  display: none;
+}
+.modalPictureAdd, .modalAddPictureAddValidate {
   width: 237px;
   height: 36px;
   background: #1d6154;
@@ -141,21 +151,71 @@ border-bottom: 1px solid #B3B3B3}
   font-family: "Syne";
   border: 0;
 }
-.fa-trash-can{
-		position: absolute;
-	top: 0;
-	right:0;
-	margin: 5px 5px;
-	width: 17px;
-	height: 17px;
-	font-size: 10px;
-	color:white;
-	background-color: black;
-display: flex;
-justify-content: center;
-align-items: center;
-border-radius: 2px;
+.fa-trash-can {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 5px 5px;
+  width: 17px;
+  height: 17px;
+  font-size: 10px;
+  color: white;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
 }
+/* ModalAdd */
+.modalAddBtnReturn{
+  justify-content: space-between;
+}
+.modalAddFormulaire{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.modalAddFormulaire, .modalAddPictureAdd{
+  width: 420px;
+}
+.modalAddPictureAddValidate{
+  background-color: #A7A7A7;
+}
+.modalAddPictureAdd{
+height: 169px;
+border-radius: 3px;
+background-color: #E8F1F6;
+margin: 2em auto 1em auto;
+display: flex;
+flex-direction: column;
+justify-content: center;
+gap: 10px;
+align-items: center;
+}
+.fa-image{
+  font-size: 76px;
+color: #CBD6DC;
+
+}
+.modalAddPictureAdd button{
+  width: 173px;
+height: 36px;
+border-radius: 50px;
+border: 0;
+background-color: #CBD6DC; 
+font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  font-family: 'Work Sans';
+  color: #306685;
+}
+.modalAddPictureAdd p{
+  font-family: 'Work Sans';
+font-size: 10px;
+text-align: center;
+color: #444444;
+}
+
 /* Div présente en JS */
 #portfolioFilter {
   width: 60%;

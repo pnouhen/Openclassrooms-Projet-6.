@@ -55,7 +55,7 @@ async function filterFunction() {
         buttonRemove();
         for (i = 0; i < filterTableau.length; i++) {
           if (filterTableau[i].category.name === button.textContent) {
-            galleryFill(gallery,filterTableau[i]);
+            galleryFill(gallery, filterTableau[i]);
             button.classList.add("buttonFilter");
           }
         }
@@ -83,8 +83,8 @@ buttonTous.addEventListener("click", () => {
 
 // Ajout de la barre de Edition après avoir le tocken
 const token = localStorage.getItem("authToken");
-const header = document.getElementById("header")
-const headerEdition = document.querySelector(".headerEdition")
+const header = document.getElementById("header");
+const headerEdition = document.querySelector(".headerEdition");
 if (token) {
   headerEdition.classList.toggle("active");
   // Loginout
@@ -97,29 +97,40 @@ if (token) {
     headerEdition.classList.remove("active");
   });
 }
-// Remplir la modale
-const modalImg = document.getElementById("modalImg");
+// Remplir la modalPicture
 const modeEdition = document.querySelector(".headerEdition");
-const modalContainer = document.querySelector(".modalContainer");
-// Ouvrir la modale
+const modalPicture = document.querySelector(".modalPicture");
+const modalPictureImg = document.getElementById("modalPictureImg");
+
+// Ouvrir la modalPicture
 modeEdition.addEventListener("click", async () => {
-  modalContainer.classList.toggle("active");
-  await projet(modalImg);
+  modalPicture.classList.toggle("active");
+  modalPictureImg.innerHTML = "";
+  await projet(modalPictureImg);
   // Mise en place de la poubelle
-  const modalFigures = document.querySelectorAll("#modalImg figure");
-console.log(modalFigures)
-modalFigures.forEach(figure => {
-  const trash = document.createElement("i");
-  figure.appendChild(trash);
-  trash.classList.add('fa-solid', 'fa-trash-can');
-  figure.style.position= "relative";
+  const modalPictureFigures = document.querySelectorAll("#modalPictureImg figure");
+  modalPictureFigures.forEach((figure) => {
+    const trash = document.createElement("i");
+    figure.appendChild(trash);
+    trash.classList.add("fa-solid", "fa-trash-can");
+    figure.style.position = "relative";
+  });
 });
-})
-// Fonction pour fermer la modale
-const overlay = document.querySelector(".overlay");
+// Fonction pour fermer la modalPicture
+const modalPictureOverlay = document.querySelector(".modalPictureOverlay");
 const faxmark = document.querySelector(".fa-xmark");
-modalContainer.addEventListener("click",  (e) => {
-  if (e.target === overlay || e.target === faxmark) {
-    modalContainer.classList.toggle("active");
+modalPicture.addEventListener("click", (e) => {
+  if (e.target === modalPictureOverlay || e.target === faxmark) {
+    modalPicture.classList.toggle("active");
   }
 });
+// Add modalAdd
+const modalAdd = document.querySelector(".modalAdd")
+const modalPictureAdd = document.querySelector(".modalPictureAdd")
+console.log(modalPictureAdd)
+console.log(modalAdd);
+
+modalPictureAdd.addEventListener("click", () => {
+  modalAdd.classList.toggle("active");
+  modalPicture.classList.toggle("active");
+})

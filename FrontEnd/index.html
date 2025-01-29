@@ -25,18 +25,17 @@
         <i class="fa-regular fa-pen-to-square"></i>
         <p>Mode édition</p>
       </div>
-      <div  class="headerNormal">
+      <div class="headerNormal">
         <h1 id="h1">Sophie Bluel <span>Architecte d'intérieur</span></h1>
-      <nav id="nav">
-        <ul>
-          <li>projets</li>
-          <li>contact</li>
-          <li><a href="login.html"> login</a></li>
-          <li><img src="./assets/icons/instagram.png" alt="Instagram" /></li>
-        </ul>
-      </nav>
+        <nav id="nav">
+          <ul>
+            <li>projets</li>
+            <li>contact</li>
+            <li><a href="login.html"> login</a></li>
+            <li><img src="./assets/icons/instagram.png" alt="Instagram" /></li>
+          </ul>
+        </nav>
       </div>
-      
     </header>
     <main>
       <section id="introduction">
@@ -63,18 +62,49 @@
         </article>
       </section>
       <section id="portfolio">
-        <!-- La modale -->
-        <div class="modalContainer">
-          <div class="overlay">
-            <div class="modal">
-              <button class="modalBtn"><i class="fa-solid fa-xmark"></i></button>
+        <!-- modalPicture -->
+        <div class="modalPicture">
+          <div class="modalOverlay">
+            <div class="modalDiv">
+              <button class="modalPictureBtnReturn">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
               <h3>Galerie photo</h3>
-              <div id="modalImg"></div>
-              <button class="modalAddPicture">Ajouter une photo</button>
+              <div id="modalPictureImg"></div>
+              <button class="modalPictureAdd">Ajouter une photo</button>
             </div>
           </div>
         </div>
-        <!-- Vu par l'internaute'  -->
+        <!-- modalAdd -->
+        <div class="modalAdd">
+          <div class="modalOverlay">
+            <div class="modalDiv">
+              <div class="modalAddBtnReturn">
+                <button>
+                  <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <button>
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+              <h3>Ajout Photo</h3>
+              <div class="modalAddPictureAdd">
+                <i class="fa-regular fa-image"></i>
+                <button>+ Ajouter photo</button>
+                <p>jpg, png : 4mo max</p>
+              </div>
+              <form action="#" method="post" class="modalAddFormulaire">
+                <label for="name">Titre</label>
+                <input type="text" name="title" id="title" />
+                <label for="text">Catégorie</label>
+                <select name="categorie" id="categorie">
+                </select>
+              </form>
+              <button class="modalAddPictureAddValidate">Valider</button>
+            </div>
+          </div>
+        </div>
+        <!-- Vu par l'internaute  -->
         <h2>Mes Projets</h2>
         <div id="portfolioFilter">
           <button id="buttonTous" class="buttonFilter">Tous</button>
