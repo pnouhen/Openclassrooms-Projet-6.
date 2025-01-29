@@ -32,13 +32,12 @@ async function projet(gallery) {
 }
 projet(gallery);
 // Réalisation du filtre des travaux : Ajout des filtres pour afficher les travaux par catégorie
-// Création des buttons
 const filter = document.getElementById("portfolioFilter");
 async function filterFunction() {
-  // Récuperation du tableau
-  const filterTableau = await apiWorks();
   // Placer les catégories dans un tableau
   let categories = [];
+  // Récuperation du tableau
+  const filterTableau = await apiWorks();
   // Création d'une boucle pour générer les boutons sans doublons et
   // afficher les catégories du tableau
   for (let i = 0; i < filterTableau.length; i++) {
@@ -62,6 +61,7 @@ async function filterFunction() {
       });
     }
   }
+  return categories;
 }
 filterFunction();
 //  Fonction pour enlever les classes des autres bouttons
@@ -108,7 +108,9 @@ modeEdition.addEventListener("click", async () => {
   modalPictureImg.innerHTML = "";
   await projet(modalPictureImg);
   // Mise en place de la poubelle
-  const modalPictureFigures = document.querySelectorAll("#modalPictureImg figure");
+  const modalPictureFigures = document.querySelectorAll(
+    "#modalPictureImg figure"
+  );
   modalPictureFigures.forEach((figure) => {
     const trash = document.createElement("i");
     figure.appendChild(trash);
@@ -125,20 +127,56 @@ modalPicture.addEventListener("click", (e) => {
   }
 });
 //Open the modalAdd
-const modalAdd = document.querySelector(".modalAdd")
-const modalPictureAdd = document.querySelector(".modalPictureAdd")
+const modalAdd = document.querySelector(".modalAdd");
+const modalPictureAdd = document.querySelector(".modalPictureAdd");
 
 modalPictureAdd.addEventListener("click", () => {
   modalAdd.classList.toggle("active");
   modalPicture.classList.toggle("active");
-})
+});
 // Close the modalPicture
-const modalAddOverlay = document.querySelector(".modalAddOverlay")
-const modalAddXmark = document.getElementById("modalAddXmark")
-const fArrowLeft = document.querySelector(".fa-arrow-left")
+const modalAddOverlay = document.querySelector(".modalAddOverlay");
+const modalAddXmark = document.getElementById("modalAddXmark");
+const fArrowLeft = document.querySelector(".fa-arrow-left");
 
 modalAdd.addEventListener("click", (e) => {
-  if (e.target === modalAddOverlay || e.target === modalAddXmark || e.target === fArrowLeft) {
+  if (
+    e.target === modalAddOverlay ||
+    e.target === modalAddXmark ||
+    e.target === fArrowLeft
+  ) {
     modalAdd.classList.toggle("active");
   }
 });
+// Add categories in select
+const selectCategories = document.getElementById("categorie");
+async function addCategories() {
+  let categories = [""];  
+   // Créer l'option vide au tout début (index 0)
+   const firstOption = document.createElement("option");
+   firstOption.value = "";  
+   firstOption.textContent = "";  
+   selectCategories.prepend(firstOption); 
+   document.getElementById('categorie').selectedIndex = 0; 
+
+  // Récupération du tableau
+  const categorieTableau = await apiWorks();
+
+  // Création d'une boucle pour générer les boutons sans doublons et
+  // afficher les catégories du tableau
+  for (let i = 0; i < categorieTableau.length; i++) {
+    const categoryName = categorieTableau[i].category.name;
+    
+    // Vérifier si la catégorie n'existe pas déjà dans le tableau
+    if (!categories.includes(categoryName)) {
+      categories.push(categoryName);
+      const option = document.createElement("option");
+      option.value = categoryName; 
+      option.textContent = categoryName;  
+      selectCategories.appendChild(option);
+    }
+  }
+  selectCategories.selectedIndex = 0;
+}
+
+addCategories();
