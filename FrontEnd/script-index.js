@@ -102,7 +102,7 @@ const modeEdition = document.querySelector(".headerEdition");
 const modalPicture = document.querySelector(".modalPicture");
 const modalPictureImg = document.getElementById("modalPictureImg");
 
-// Ouvrir la modalPicture
+// Open the modalPicture
 modeEdition.addEventListener("click", async () => {
   modalPicture.classList.toggle("active");
   modalPictureImg.innerHTML = "";
@@ -116,21 +116,29 @@ modeEdition.addEventListener("click", async () => {
     figure.style.position = "relative";
   });
 });
-// Fonction pour fermer la modalPicture
+// Close the modalPicture
 const modalPictureOverlay = document.querySelector(".modalPictureOverlay");
-const faxmark = document.querySelector(".fa-xmark");
+const modalPictureXmark = document.getElementById("modalPictureXmark");
 modalPicture.addEventListener("click", (e) => {
-  if (e.target === modalPictureOverlay || e.target === faxmark) {
+  if (e.target === modalPictureOverlay || e.target === modalPictureXmark) {
     modalPicture.classList.toggle("active");
   }
 });
-// Add modalAdd
+//Open the modalAdd
 const modalAdd = document.querySelector(".modalAdd")
 const modalPictureAdd = document.querySelector(".modalPictureAdd")
-console.log(modalPictureAdd)
-console.log(modalAdd);
 
 modalPictureAdd.addEventListener("click", () => {
   modalAdd.classList.toggle("active");
   modalPicture.classList.toggle("active");
 })
+// Close the modalPicture
+const modalAddOverlay = document.querySelector(".modalAddOverlay")
+const modalAddXmark = document.getElementById("modalAddXmark")
+const fArrowLeft = document.querySelector(".fa-arrow-left")
+
+modalAdd.addEventListener("click", (e) => {
+  if (e.target === modalAddOverlay || e.target === modalAddXmark || e.target === fArrowLeft) {
+    modalAdd.classList.toggle("active");
+  }
+});

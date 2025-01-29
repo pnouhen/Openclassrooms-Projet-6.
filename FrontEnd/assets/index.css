@@ -75,7 +75,7 @@
 .modalPicture.active, .modalAdd.active {
   display: block;
 }
-.modalOverlay {
+.modalPictureOverlay, .modalAddOverlay {
   position: absolute;
   width: 100%;
   height: 100%;
