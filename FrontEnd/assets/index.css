@@ -1,3 +1,21 @@
+/* Edition mode */
+.headerEdition {
+  width: 100%;
+  height: 59px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  background-color: black;
+}
+.fa-pen-to-square,
+.headerEdition p {
+  color: #ffffff;
+}
+.headerEdition p {
+  font-size: 16px;
+}
+/* Introduction */
 #introduction {
   display: flex;
   align-items: center;
@@ -21,6 +39,7 @@
 #introduction p {
   margin-bottom: 0.5em;
 }
+/* Project */
 #portfolio h2 {
   text-align: center;
   margin-bottom: 1em;
@@ -87,7 +106,7 @@
   text-align: center;
   font-family: "Work Sans";
 }
-.modalImg{
+#modalImg{
 	width: 70%;
 	margin: 0 auto 2em auto;
 	display: flex;
@@ -95,10 +114,10 @@
 gap: 5px;
 padding-bottom: 50px;
 border-bottom: 1px solid #B3B3B3}
-.modalImg img{
+#modalImg img{
 	width: 76px;
 }
-.modalImg figcaption{
+#modalImg figcaption{
 	display: none;
 }
 .modalAddPicture {
@@ -129,9 +148,6 @@ justify-content: center;
 align-items: center;
 border-radius: 2px;
 }
-figure.active{
-	position: relative;
-}
 /* Div présente en JS */
 #portfolioFilter {
   width: 60%;
@@ -155,20 +171,4 @@ figure.active{
 #portfolioFilter button.buttonFilter {
   background-color: #1d6154;
   color: #ffffff;
-}
-.headerEdition {
-  width: 100%;
-  height: 59px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  background-color: black;
-}
-.fa-pen-to-square,
-.headerEdition p {
-  color: #ffffff;
-}
-.headerEdition p {
-  font-size: 16px;
 }

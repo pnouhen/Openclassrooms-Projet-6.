@@ -13,7 +13,6 @@ const gallery = document.getElementById("gallery");
 function galleryFill(gallery, fill) {
   // Figure in Gallery
   const figure = document.createElement("figure");
-  figure.classList.add("figure")
   gallery.appendChild(figure);
   // Image
   const img = document.createElement("img");
@@ -120,27 +119,24 @@ if (token) {
   });
 }
 // Remplir la modale
-const modalImg = document.querySelector(".modalImg");
+const modalImg = document.getElementById("modalImg");
 const modeEdition = document.querySelector(".headerEdition");
 const modalContainer = document.querySelector(".modalContainer");
 const modalClose = document.querySelector(".modal-trigger");
-
 // Ouvrir la modale
-modeEdition.addEventListener("click", () => {
+modeEdition.addEventListener("click", async () => {
   modalContainer.classList.toggle("active");
-  projet(modalImg);
-  modalTrash()
+  await projet(modalImg);
+  // Mise en place de la poubelle
+  const modalFigures = document.querySelectorAll("#modalImg figure");
+console.log(modalFigures)
+modalFigures.forEach(figure => {
+  const trash = document.createElement("i");
+  figure.appendChild(trash);
+  trash.classList.add('fa-solid', 'fa-trash-can');
+  figure.style.position= "relative";
 });
-// Mise en place de la poubelle
-function modalTrash() {
-  const modalFigures = document.querySelectorAll(".figure");
-  console.log(modalFigures);
-  modalFigures.forEach(figure => {
-    const trash = document.createElement("i");
-    trash.classList.add('fa-solid', 'fa-trash-can');
-    figure.appendChild(trash);
-  });
-}
+})
 // Fonction pour fermer la modale
 function toggleModal() {
   modalContainer.classList.toggle("active");
@@ -153,4 +149,3 @@ const modal = document.querySelector(".modal");
 modal.addEventListener("click", function (e) {
   e.stopPropagation();
 });
-
