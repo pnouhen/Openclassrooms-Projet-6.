@@ -122,7 +122,6 @@ if (token) {
 const modalImg = document.getElementById("modalImg");
 const modeEdition = document.querySelector(".headerEdition");
 const modalContainer = document.querySelector(".modalContainer");
-const modalClose = document.querySelector(".modal-trigger");
 // Ouvrir la modale
 modeEdition.addEventListener("click", async () => {
   modalContainer.classList.toggle("active");
@@ -138,11 +137,13 @@ modalFigures.forEach(figure => {
 });
 })
 // Fonction pour fermer la modale
-function toggleModal() {
+const overlay = document.querySelector(".overlay");
+overlay.addEventListener("click", () => {
   modalContainer.classList.toggle("active");
-}
-modalClose.addEventListener("click", () => {
-  toggleModal();
+});
+const faxmark = document.querySelector(".fa-xmark");
+faxmark.addEventListener("click", () => {
+  modalContainer.classList.toggle("active");
 });
 // Empêcher la fermeture de la modale si on clique à l'intérieur de la fenêtre modale
 const modal = document.querySelector(".modal");
