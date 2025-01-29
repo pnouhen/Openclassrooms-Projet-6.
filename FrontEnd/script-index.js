@@ -71,7 +71,6 @@ function buttonRemove() {
   // Prendre tous les bouttons et appliquer la classe
   buttons.forEach((b) => b.classList.remove("buttonFilter"));
 }
-
 // Activation du bouton : Tous
 const buttonTous = document.getElementById("buttonTous");
 buttonTous.addEventListener("click", () => {
@@ -80,7 +79,6 @@ buttonTous.addEventListener("click", () => {
   buttonRemove();
   buttonTous.classList.add("buttonFilter");
 });
-
 // Ajout de la barre de Edition après avoir le tocken
 const token = localStorage.getItem("authToken");
 const header = document.getElementById("header");
@@ -96,12 +94,10 @@ if (token) {
     loginItem.innerHTML = '<a href="login.html">Login</a>';
     headerEdition.classList.remove("active");
   });
-}
 // Remplir la modalPicture
 const modeEdition = document.querySelector(".headerEdition");
 const modalPicture = document.querySelector(".modalPicture");
 const modalPictureImg = document.getElementById("modalPictureImg");
-
 // Open the modalPicture
 modeEdition.addEventListener("click", async () => {
   modalPicture.classList.toggle("active");
@@ -118,9 +114,11 @@ modeEdition.addEventListener("click", async () => {
     figure.style.position = "relative";
   });
 });
+}
 // Close the modalPicture
 const modalPictureOverlay = document.querySelector(".modalPictureOverlay");
 const modalPictureXmark = document.getElementById("modalPictureXmark");
+const modalPicture =document.querySelector('.modalPicture')
 modalPicture.addEventListener("click", (e) => {
   if (e.target === modalPictureOverlay || e.target === modalPictureXmark) {
     modalPicture.classList.toggle("active");
@@ -129,16 +127,15 @@ modalPicture.addEventListener("click", (e) => {
 //Open the modalAdd
 const modalAdd = document.querySelector(".modalAdd");
 const modalPictureAdd = document.querySelector(".modalPictureAdd");
-
 modalPictureAdd.addEventListener("click", () => {
   modalAdd.classList.toggle("active");
   modalPicture.classList.toggle("active");
 });
 // Close the modalPicture
+const modalAddFormulaire = document.querySelector(".modalAddFormulaire");
 const modalAddOverlay = document.querySelector(".modalAddOverlay");
 const modalAddXmark = document.getElementById("modalAddXmark");
 const fArrowLeft = document.querySelector(".fa-arrow-left");
-
 modalAdd.addEventListener("click", (e) => {
   if (
     e.target === modalAddOverlay ||
@@ -146,37 +143,35 @@ modalAdd.addEventListener("click", (e) => {
     e.target === fArrowLeft
   ) {
     modalAdd.classList.toggle("active");
+    modalPicture.classList.toggle("active");
+    modalAddFormulaire.reset();
   }
 });
 // Add categories in select
 const selectCategories = document.getElementById("categorie");
 async function addCategories() {
-  let categories = [""];  
-   // Créer l'option vide au tout début (index 0)
-   const firstOption = document.createElement("option");
-   firstOption.value = "";  
-   firstOption.textContent = "";  
-   selectCategories.prepend(firstOption); 
-   document.getElementById('categorie').selectedIndex = 0; 
-
+  let categories = [""];
+  // Créer l'option vide au tout début (index 0)
+  const firstOption = document.createElement("option");
+  firstOption.value = "";
+  firstOption.textContent = "";
+  selectCategories.prepend(firstOption);
+  document.getElementById("categorie").selectedIndex = 0;
   // Récupération du tableau
   const categorieTableau = await apiWorks();
-
   // Création d'une boucle pour générer les boutons sans doublons et
   // afficher les catégories du tableau
   for (let i = 0; i < categorieTableau.length; i++) {
     const categoryName = categorieTableau[i].category.name;
-    
     // Vérifier si la catégorie n'existe pas déjà dans le tableau
     if (!categories.includes(categoryName)) {
       categories.push(categoryName);
       const option = document.createElement("option");
-      option.value = categoryName; 
-      option.textContent = categoryName;  
+      option.value = categoryName;
+      option.textContent = categoryName;
       selectCategories.appendChild(option);
     }
   }
   selectCategories.selectedIndex = 0;
 }
-
 addCategories();
