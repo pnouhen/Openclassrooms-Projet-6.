@@ -83,31 +83,10 @@ buttonTous.addEventListener("click", () => {
 
 // Ajout de la barre de Edition après avoir le tocken
 const token = localStorage.getItem("authToken");
+const header = document.getElementById("header")
+const headerEdition = document.querySelector(".headerEdition")
 if (token) {
-  // Recuperation des données et des classes
-  const header = document.getElementById("header");
-  const h1 = document.getElementById("h1");
-  const nav = document.getElementById("nav");
-  // Création de divEdition
-  const divEdition = document.createElement("div");
-  header.appendChild(divEdition);
-  divEdition.classList.add("headerEdition");
-  const iconEdition = document.createElement("i");
-  divEdition.appendChild(iconEdition);
-  iconEdition.classList.add("fa-regular", "fa-pen-to-square");
-  const pEdition = document.createElement("p");
-  divEdition.appendChild(pEdition);
-  pEdition.textContent = "Mode édition";
-  // Regroupement des balises h1 et nav
-  const divH1Nav = document.createElement("div");
-  header.appendChild(divH1Nav);
-  divH1Nav.appendChild(h1);
-  divH1Nav.appendChild(nav);
-  divH1Nav.classList.add("divH1Nav");
-  // Propriétés CSS
-  header.style.display = "flex";
-  header.style.flexDirection = "column";
-  header.style.marginTop = 0;
+  headerEdition.classList.toggle("active");
   // Loginout
   const loginLink = document.querySelector('a[href="login.html"]');
   const loginItem = loginLink.parentElement;
@@ -115,7 +94,7 @@ if (token) {
   loginItem.addEventListener("click", () => {
     localStorage.removeItem("authToken");
     loginItem.innerHTML = '<a href="login.html">Login</a>';
-    divEdition.style.display = "none";
+    headerEdition.classList.remove("active");
   });
 }
 // Remplir la modale
@@ -138,15 +117,9 @@ modalFigures.forEach(figure => {
 })
 // Fonction pour fermer la modale
 const overlay = document.querySelector(".overlay");
-overlay.addEventListener("click", () => {
-  modalContainer.classList.toggle("active");
-});
 const faxmark = document.querySelector(".fa-xmark");
-faxmark.addEventListener("click", () => {
-  modalContainer.classList.toggle("active");
-});
-// Empêcher la fermeture de la modale si on clique à l'intérieur de la fenêtre modale
-const modal = document.querySelector(".modal");
-modal.addEventListener("click", function (e) {
-  e.stopPropagation();
+modalContainer.addEventListener("click",  (e) => {
+  if (e.target === overlay || e.target === faxmark) {
+    modalContainer.classList.toggle("active");
+  }
 });
