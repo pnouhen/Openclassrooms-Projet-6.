@@ -175,3 +175,12 @@ async function addCategories() {
   selectCategories.selectedIndex = 0;
 }
 addCategories();
+// Validation taille de l'image
+const uploadField = document.getElementById("file");
+
+uploadField.onchange = function() {
+    if(this.files[0].size > 4 * 1024 * 1024) {
+       alert("Le fichier est  supérieur à 4Mo");
+       this.value = "";
+    }
+};
