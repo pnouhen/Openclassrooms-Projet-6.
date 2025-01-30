@@ -193,9 +193,7 @@
 .modalAddPictureAdd {
   width: 420px;
 }
-.modalAddPictureAddValidate {
-  background-color: #a7a7a7;
-}
+
 .modalAddPictureAdd {
   height: 169px;
   border-radius: 3px;
@@ -205,6 +203,9 @@
   justify-content: center;
   gap: 10px;
   align-items: center;
+}
+.modalAddPictureAdd img{
+  height:100%
 }
 .fa-image {
   font-size: 76px;
@@ -233,11 +234,17 @@ input[type="file"] {
   text-align: center;
   color: #444444;
 }
+.fa-image.active, .modalAddPictureAdd label.active, .modalAddPictureAdd p.active{
+  display: none;
+} 
 #categorie,
 #title {
   font-family: "Work Sans";
   font-size: 14px;
   color: #444444;
+}
+.modalAddPictureAddValidate {
+  background-color: #a7a7a7;
 }
 /* Div présente en JS */
 #portfolioFilter {

@@ -94,31 +94,31 @@ if (token) {
     loginItem.innerHTML = '<a href="login.html">Login</a>';
     headerEdition.classList.remove("active");
   });
-// Remplir la modalPicture
-const modeEdition = document.querySelector(".headerEdition");
-const modalPicture = document.querySelector(".modalPicture");
-const modalPictureImg = document.getElementById("modalPictureImg");
-// Open the modalPicture
-modeEdition.addEventListener("click", async () => {
-  modalPicture.classList.toggle("active");
-  modalPictureImg.innerHTML = "";
-  await projet(modalPictureImg);
-  // Mise en place de la poubelle
-  const modalPictureFigures = document.querySelectorAll(
-    "#modalPictureImg figure"
-  );
-  modalPictureFigures.forEach((figure) => {
-    const trash = document.createElement("i");
-    figure.appendChild(trash);
-    trash.classList.add("fa-solid", "fa-trash-can");
-    figure.style.position = "relative";
+  // Remplir la modalPicture
+  const modeEdition = document.querySelector(".headerEdition");
+  const modalPicture = document.querySelector(".modalPicture");
+  const modalPictureImg = document.getElementById("modalPictureImg");
+  // Open the modalPicture
+  modeEdition.addEventListener("click", async () => {
+    modalPicture.classList.toggle("active");
+    modalPictureImg.innerHTML = "";
+    await projet(modalPictureImg);
+    // Mise en place de la poubelle
+    const modalPictureFigures = document.querySelectorAll(
+      "#modalPictureImg figure"
+    );
+    modalPictureFigures.forEach((figure) => {
+      const trash = document.createElement("i");
+      figure.appendChild(trash);
+      trash.classList.add("fa-solid", "fa-trash-can");
+      figure.style.position = "relative";
+    });
   });
-});
 }
 // Close the modalPicture
 const modalPictureOverlay = document.querySelector(".modalPictureOverlay");
 const modalPictureXmark = document.getElementById("modalPictureXmark");
-const modalPicture =document.querySelector('.modalPicture')
+const modalPicture = document.querySelector(".modalPicture");
 modalPicture.addEventListener("click", (e) => {
   if (e.target === modalPictureOverlay || e.target === modalPictureXmark) {
     modalPicture.classList.toggle("active");
@@ -177,10 +177,34 @@ async function addCategories() {
 addCategories();
 // Validation taille de l'image
 const uploadField = document.getElementById("file");
-
-uploadField.onchange = function() {
-    if(this.files[0].size > 4 * 1024 * 1024) {
-       alert("Le fichier est  supérieur à 4Mo");
-       this.value = "";
-    }
+uploadField.onchange = function () {
+  if (this.files[0].size > 4 * 1024 * 1024) {
+    alert("Le fichier est  supérieur à 4Mo");
+    this.value = "";
+  }
 };
+// Preview imageUploader
+const imageUploader = document.querySelector("input");
+const icon = document.querySelector(".modalAddPictureAdd i");
+const label = document.querySelector(".modalAddPictureAdd label[for='file']");
+const message = document.querySelector(".modalAddPictureAdd p");
+const modalAddPictureAdd = document.querySelector(".modalAddPictureAdd");
+function showImage() {
+  let imagePreview = document.createElement("img");
+  imagePreview.src = "chemin/vers/ton/image.jpg";
+  imagePreview.alt = "Description de l'image";
+  modalAddPictureAdd.appendChild(imagePreview);
+  if (imageUploader.files.length > 0) {
+    let reader = new FileReader();
+    reader.readAsDataURL(imageUploader.files[0]);
+    reader.onload = function (e) {
+      console.log("Image chargée avec succès : ", e.target.result);
+      imagePreview.src = e.target.result;
+    };
+    icon.style.display = "none";
+    label.style.display = "none";
+    imageUploader.style.display = "none";
+    message.style.display = "none";
+  }
+}
+imageUploader.addEventListener("change", showImage);
