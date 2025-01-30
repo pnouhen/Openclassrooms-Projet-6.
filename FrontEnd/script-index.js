@@ -127,9 +127,13 @@ modalPicture.addEventListener("click", (e) => {
 //Open the modalAdd
 const modalAdd = document.querySelector(".modalAdd");
 const modalPictureAdd = document.querySelector(".modalPictureAdd");
+const imagePreview = document.querySelector(".modalAddPictureAdd img");
+const buttonValidate = document.querySelector(".modalAddPictureAddValidate")
 modalPictureAdd.addEventListener("click", () => {
   modalAdd.classList.toggle("active");
-  modalPicture.classList.toggle("active");
+  modalPicture.classList.toggle("active")
+  buttonValidate.classList.toggle("active")
+  imagePreview.classList.toggle("active");
 });
 // Close the modalAdd
 const modalAddFormulaire = document.querySelector(".modalAddFormulaire");
@@ -150,7 +154,8 @@ modalAdd.addEventListener("click", (e) => {
     label.classList.remove("active");
     imageUploader.classList.remove("active");
     message.classList.remove("active");
-    imagePreview.classList.toggle("active");
+    imagePreview.src =""
+    imagePreview.classList.remove("active");
   }
 });
 // Preview imageUploader
@@ -158,8 +163,6 @@ const imageUploader = document.querySelector("input");
 const icon = document.querySelector(".modalAddPictureAdd i");
 const label = document.querySelector(".modalAddPictureAdd label[for='file']");
 const message = document.querySelector(".modalAddPictureAdd p");
-const imagePreview = document.querySelector(".modalAddPictureAdd img");
-imagePreview.classList.toggle("active");
 function showImage() {
   if (imageUploader.files.length > 0) {
     let reader = new FileReader();
@@ -186,20 +189,16 @@ uploadField.onchange = function () {
 // Add categories in select
 const selectCategories = document.getElementById("categorie");
 async function addCategories() {
+  // Reprise du code pour créer les filtres
   let categories = [""];
-  // Créer l'option vide au tout début (index 0)
-  const firstOption = document.createElement("option");
+   const firstOption = document.createElement("option");
   firstOption.value = "";
   firstOption.textContent = "";
   selectCategories.prepend(firstOption);
   document.getElementById("categorie").selectedIndex = 0;
-  // Récupération du tableau
   const categorieTableau = await apiWorks();
-  // Création d'une boucle pour générer les boutons sans doublons et
-  // afficher les catégories du tableau
-  for (let i = 0; i < categorieTableau.length; i++) {
+   for (let i = 0; i < categorieTableau.length; i++) {
     const categoryName = categorieTableau[i].category.name;
-    // Vérifier si la catégorie n'existe pas déjà dans le tableau
     if (!categories.includes(categoryName)) {
       categories.push(categoryName);
       const option = document.createElement("option");
@@ -211,4 +210,3 @@ async function addCategories() {
   selectCategories.selectedIndex = 0;
 }
 addCategories();
-

@@ -205,6 +205,7 @@
   align-items: center;
 }
 .modalAddPictureAdd img{
+  display: block;
   height:100%
 }
 .fa-image {
@@ -243,7 +244,7 @@ input[type="file"] {
   font-size: 14px;
   color: #444444;
 }
-.modalAddPictureAddValidate {
+.modalAddPictureAddValidate.active {
   background-color: #a7a7a7;
 }
 /* Div présente en JS */
