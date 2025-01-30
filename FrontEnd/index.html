@@ -76,7 +76,7 @@
           </div>
         </div>
         <!-- modalAdd -->
-        <div class="modalAdd">
+        <div class="">
           <div class="modalAddOverlay">
             <div class="modalDiv">
               <div class="modalAddBtnReturn">
@@ -88,12 +88,14 @@
                 </button>
               </div>
               <h3>Ajout Photo</h3>
-              <div class="modalAddPictureAdd">
-                <i class="fa-regular fa-image"></i>
-                <button>+ Ajouter photo</button>
-                <p>jpg, png : 4mo max</p>
-              </div>
+              
               <form action="#" method="post" class="modalAddFormulaire">
+                <div class="modalAddPictureAdd">                
+                      <i class="fa-regular fa-image"></i>                  
+                 <label for="file">+ Ajouter une photo</label>
+                  <input type="file" name="file" id="file" accept="image/jpeg, image/png">
+                  <p>jpg, png : 4MB max</p>
+              </div>                
                 <label for="title">Titre</label>
                 <input type="text" name="title" id="title" />
                 <label for="categorie">Catégorie</label>
