@@ -234,7 +234,7 @@ input[type="file"] {
   text-align: center;
   color: #444444;
 }
-.fa-image.active, .modalAddPictureAdd label.active, .modalAddPictureAdd p.active{
+.fa-image.active, .modalAddPictureAdd label.active, .modalAddPictureAdd p.active, .modalAddPictureAdd img.active{
   display: none;
 } 
 #categorie,

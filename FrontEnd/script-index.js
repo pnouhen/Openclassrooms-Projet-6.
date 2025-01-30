@@ -131,7 +131,7 @@ modalPictureAdd.addEventListener("click", () => {
   modalAdd.classList.toggle("active");
   modalPicture.classList.toggle("active");
 });
-// Close the modalPicture
+// Close the modalAdd
 const modalAddFormulaire = document.querySelector(".modalAddFormulaire");
 const modalAddOverlay = document.querySelector(".modalAddOverlay");
 const modalAddXmark = document.getElementById("modalAddXmark");
@@ -145,8 +145,44 @@ modalAdd.addEventListener("click", (e) => {
     modalAdd.classList.toggle("active");
     modalPicture.classList.toggle("active");
     modalAddFormulaire.reset();
+    // For modalAddPictureAdd reset
+    icon.classList.remove("active");
+    label.classList.remove("active");
+    imageUploader.classList.remove("active");
+    message.classList.remove("active");
+    imagePreview.classList.toggle("active");
   }
 });
+// Preview imageUploader
+const imageUploader = document.querySelector("input");
+const icon = document.querySelector(".modalAddPictureAdd i");
+const label = document.querySelector(".modalAddPictureAdd label[for='file']");
+const message = document.querySelector(".modalAddPictureAdd p");
+const imagePreview = document.querySelector(".modalAddPictureAdd img");
+imagePreview.classList.toggle("active");
+function showImage() {
+  if (imageUploader.files.length > 0) {
+    let reader = new FileReader();
+    reader.readAsDataURL(imageUploader.files[0]);
+    reader.onload = function (e) {
+      imagePreview.src = e.target.result;
+    };
+    imagePreview.classList.remove("active");
+    icon.classList.toggle("active");
+    label.classList.toggle("active");
+    imageUploader.classList.toggle("active");
+    message.classList.toggle("active");
+  }
+}
+imageUploader.addEventListener("change", showImage);
+// Validation taille de l'image
+const uploadField = document.getElementById("file");
+uploadField.onchange = function () {
+  if (this.files[0].size > 4 * 1024 * 1024) {
+    alert("Le fichier est  supérieur à 4Mo");
+    this.value = "";
+  }
+};
 // Add categories in select
 const selectCategories = document.getElementById("categorie");
 async function addCategories() {
@@ -175,36 +211,4 @@ async function addCategories() {
   selectCategories.selectedIndex = 0;
 }
 addCategories();
-// Validation taille de l'image
-const uploadField = document.getElementById("file");
-uploadField.onchange = function () {
-  if (this.files[0].size > 4 * 1024 * 1024) {
-    alert("Le fichier est  supérieur à 4Mo");
-    this.value = "";
-  }
-};
-// Preview imageUploader
-const imageUploader = document.querySelector("input");
-const icon = document.querySelector(".modalAddPictureAdd i");
-const label = document.querySelector(".modalAddPictureAdd label[for='file']");
-const message = document.querySelector(".modalAddPictureAdd p");
-const modalAddPictureAdd = document.querySelector(".modalAddPictureAdd");
-function showImage() {
-  let imagePreview = document.createElement("img");
-  imagePreview.src = "chemin/vers/ton/image.jpg";
-  imagePreview.alt = "Description de l'image";
-  modalAddPictureAdd.appendChild(imagePreview);
-  if (imageUploader.files.length > 0) {
-    let reader = new FileReader();
-    reader.readAsDataURL(imageUploader.files[0]);
-    reader.onload = function (e) {
-      console.log("Image chargée avec succès : ", e.target.result);
-      imagePreview.src = e.target.result;
-    };
-    icon.style.display = "none";
-    label.style.display = "none";
-    imageUploader.style.display = "none";
-    message.style.display = "none";
-  }
-}
-imageUploader.addEventListener("change", showImage);
+
