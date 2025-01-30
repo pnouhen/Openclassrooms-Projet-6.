@@ -11,9 +11,3 @@
 text-decoration-line: underline;
 text-align: center;
 }
-.MessageErreur{
-  text-align: center;  
-  margin : 1rem;
-  font-style: italic;
-  line-height: 1.5rem;
-}
