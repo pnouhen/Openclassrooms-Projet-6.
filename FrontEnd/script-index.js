@@ -128,13 +128,13 @@ modalPicture.addEventListener("click", (e) => {
 const modalAdd = document.querySelector(".modalAdd");
 const modalPictureAdd = document.querySelector(".modalPictureAdd");
 const imagePreview = document.querySelector(".modalAddPictureAdd img");
-const buttonValidate = document.querySelector(".modalAddPictureAddValidate")
-buttonValidate.classList.remove("active")
+const buttonValidate = document.querySelector(".modalAddPictureAddValidate");
+buttonValidate.classList.remove("active");
 
 modalPictureAdd.addEventListener("click", () => {
   modalAdd.classList.toggle("active");
-  modalPicture.classList.toggle("active")
-  buttonValidate.classList.toggle("active")
+  modalPicture.classList.toggle("active");
+  buttonValidate.classList.toggle("active");
   imagePreview.classList.toggle("active");
 });
 // Close the modalAdd
@@ -156,7 +156,7 @@ modalAdd.addEventListener("click", (e) => {
     label.classList.remove("active");
     imageUploader.classList.remove("active");
     message.classList.remove("active");
-    imagePreview.src =""
+    imagePreview.src = "";
     imagePreview.classList.remove("active");
   }
 });
@@ -193,13 +193,13 @@ const selectCategories = document.getElementById("categorie");
 async function addCategories() {
   // Reprise du code pour créer les filtres
   let categories = [""];
-   const firstOption = document.createElement("option");
+  const firstOption = document.createElement("option");
   firstOption.value = "";
   firstOption.textContent = "";
   selectCategories.prepend(firstOption);
   document.getElementById("categorie").selectedIndex = 0;
   const categorieTableau = await apiWorks();
-   for (let i = 0; i < categorieTableau.length; i++) {
+  for (let i = 0; i < categorieTableau.length; i++) {
     const categoryName = categorieTableau[i].category.name;
     if (!categories.includes(categoryName)) {
       categories.push(categoryName);
@@ -213,16 +213,19 @@ async function addCategories() {
 }
 addCategories();
 // Button Validation
-const title = document.getElementById('title')
+const title = document.getElementById("title");
 
-function checkform(){
-  if (title.value !== ""&& selectCategories.value !== ""&& imageUploader.files.length > 0) {
-    console.log("good boy")
+function checkform() {
+  if (
+    title.value.trim() !== "" &&
+    selectCategories.value.trim() !== "" &&
+    imageUploader.files.length
+  ) {
     buttonValidate.classList.remove("active");
+  } else {
+    buttonValidate.classList.add("active");
   }
 }
-title.addEventListener('input', checkform)
-selectCategories.addEventListener('change', checkform)
-imagePreview.addEventListener('change', checkform)
-  
- 
+title.addEventListener("input", checkform);
+selectCategories.addEventListener("change", checkform);
+imageUploader.addEventListener("change", checkform);
