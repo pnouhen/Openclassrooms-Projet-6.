@@ -6,8 +6,19 @@
 /* Section Log In */
 #formulaire{
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 #mdpo{
 text-decoration-line: underline;
 text-align: center;
+}
+#formulaire p.active{
+    display: block;
+    color: red;
+margin-bottom: 20px;
+}
+#formulaire p{
+    display: none;
 }

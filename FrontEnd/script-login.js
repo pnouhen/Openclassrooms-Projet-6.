@@ -26,6 +26,7 @@ formConnexion.addEventListener("submit", async function (event) {
     const storedToken = localStorage.getItem("authToken");
     window.location.href = "./index.html";
   } else {
-    alert("Email/Mot de passe incorrect Veuillez réessayer");
+    const errorMessage = document.querySelector("#formulaire p")
+    errorMessage.classList.toggle("active")
   }
 });

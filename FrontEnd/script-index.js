@@ -86,6 +86,8 @@ const headerEdition = document.querySelector(".headerEdition");
 if (token) {
   headerEdition.classList.toggle("active");
   filter.classList.toggle("active")
+  headerNormal = document.querySelector('headerNormal')
+  headerNormal.style.paddingTop = "20px";
   // Loginout
   const loginLink = document.querySelector('a[href="login.html"]');
   const loginItem = loginLink.parentElement;
@@ -250,7 +252,6 @@ buttonValidate.addEventListener("click", () => {
   }
 });
 
-// Login : Erreur au dessous rouge
 // Le bouton modifie a cote du projet, le lien doit se faire a cote du site
 // Modal 1 reduire margin gallery et augmenter la taille de la gallery
 // Modal 2 Reduire espaces entre label et input

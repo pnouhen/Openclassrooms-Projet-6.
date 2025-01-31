@@ -5,6 +5,9 @@
   margin-top: 0;
 }
 .headerEdition.active {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 59px;
   display: flex;
@@ -247,7 +250,7 @@ input[type="file"] {
 .modalAddPictureAddValidate.active {
   background-color: #a7a7a7;
 }
-/* Div présente en JS */
+/* Vu par l'internaute */
 #projetsFilter {
   width: 60%;
   margin: 0 auto 2em auto;
