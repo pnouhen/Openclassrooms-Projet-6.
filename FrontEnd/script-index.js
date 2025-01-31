@@ -152,11 +152,11 @@ modalAdd.addEventListener("click", (e) => {
     modalPicture.classList.toggle("active");
     modalAddFormulaire.reset();
     // For modalAddPictureAdd reset
+    imagePreview.src = "";
     icon.classList.remove("active");
     label.classList.remove("active");
     uploadField.classList.remove("active");
     message.classList.remove("active");
-    imagePreview.src = "";
     imagePreview.classList.remove("active");
   }
 });
@@ -165,6 +165,13 @@ const uploadField = document.getElementById("file");
 const icon = document.querySelector(".modalAddPictureAdd i");
 const label = document.querySelector(".modalAddPictureAdd label[for='file']");
 const message = document.querySelector(".modalAddPictureAdd p");
+function modalAddPictureAddFill(){
+  imagePreview.classList.toggle("active");
+    icon.classList.toggle("active");
+    label.classList.toggle("active");
+    uploadField.classList.toggle("active");
+    message.classList.toggle("active");
+}
 uploadField.addEventListener("change",() => {
   const file = uploadField.files[0];
   if (file && file.size <= 4 * 1024 * 1024) {
@@ -173,11 +180,7 @@ uploadField.addEventListener("change",() => {
     reader.onload = function (e) {
       imagePreview.src = e.target.result;
     };
-    imagePreview.classList.remove("active");
-    icon.classList.toggle("active");
-    label.classList.toggle("active");
-    uploadField.classList.toggle("active");
-    message.classList.toggle("active");
+    modalAddPictureAddFill()
   } else {
      alert("Le fichier est trop grand, il dépasse 4 Mo.");
     this.value = "";
@@ -226,8 +229,10 @@ selectCategories.addEventListener("change", checkform);
 uploadField.addEventListener("change", checkform);
 // Reset
 buttonValidate.addEventListener("click", () =>{
-  console.log("Good boy")
-  title.value === ""
-    selectCategories.value === ""
-    uploadField.files.length === 0
+  title.value = ""
+  console.log(title.value)
+    selectCategories.value = ""
+    uploadField.value = ""
+    imagePreview.src = ""
+    modalAddPictureAddFill()
 })
