@@ -234,6 +234,7 @@ function checkform() {
     buttonValidate.classList.remove("active");
   } else {
     buttonValidate.classList.add("active");
+   
   }
 }
 title.addEventListener("input", checkform);
@@ -253,8 +254,7 @@ buttonValidate.addEventListener("click", () => {
   modalAddClose();
   modalAddPictureAddFill();
   imagePreview.classList.toggle('active') 
+  } else{
+    alert("Tous les champs doivent être remplis");
   }
 });
-
-// Modal 2 Reduire espaces entre label et input
-// Alert tous les champs sont obligatoires
