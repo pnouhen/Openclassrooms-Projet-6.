@@ -131,28 +131,32 @@ const modalAdd = document.querySelector(".modalAdd");
 const modalPictureAdd = document.querySelector(".modalPictureAdd");
 const imagePreview = document.querySelector(".modalAddPictureAdd img");
 const buttonValidate = document.querySelector(".modalAddPictureAddValidate");
-buttonValidate.classList.remove("active");
 
 modalPictureAdd.addEventListener("click", () => {
   modalAdd.classList.toggle("active");
   modalPicture.classList.toggle("active");
-  buttonValidate.classList.toggle("active");
   imagePreview.classList.toggle("active");
+  buttonValidate.classList.toggle("active")
 });
 // Close the modalAdd
 const modalAddFormulaire = document.querySelector(".modalAddFormulaire");
 const modalAddOverlay = document.querySelector(".modalAddOverlay");
 const modalAddXmark = document.getElementById("modalAddXmark");
 const fArrowLeft = document.querySelector(".fa-arrow-left");
+function modalAddClose(){
+  modalAdd.classList.toggle("active");
+    modalPicture.classList.toggle("active");
+    modalAddFormulaire.reset();
+    
+}
 modalAdd.addEventListener("click", (e) => {
   if (
     e.target === modalAddOverlay ||
     e.target === modalAddXmark ||
     e.target === fArrowLeft
   ) {
-    modalAdd.classList.toggle("active");
-    modalPicture.classList.toggle("active");
-    modalAddFormulaire.reset();
+    modalAddClose()
+    buttonValidate.classList.toggle("active")
     // For modalAddPictureAdd reset
     imagePreview.src = "";
     icon.classList.remove("active");
@@ -229,15 +233,25 @@ function checkform() {
 title.addEventListener("input", checkform);
 selectCategories.addEventListener("change", checkform);
 uploadField.addEventListener("change", checkform);
-// Reset
-buttonValidate.addEventListener("click", () =>{
-  title.value = ""
-  console.log(title.value)
-    selectCategories.value = ""
-    uploadField.value = ""
-    imagePreview.src = ""
-    modalAddPictureAddFill()
-})
+// Action
+buttonValidate.addEventListener("click", () => {
+  if (
+    title.value.trim() !== "" &&
+    selectCategories.value.trim() !== "" &&
+    uploadField.files.length > 0
+  ) {
+    title.value = "";
+  selectCategories.value = "";
+  uploadField.value = "";
+  imagePreview.src = "";
+  modalAddClose();
+  modalAddPictureAddFill();
+  imagePreview.classList.toggle('active') 
+  }
+});
 
-// A faire
-// Validation que quand c'est vert et fermer la modale
+// Login : Erreur au dessous rouge
+// Le bouton modifie a cote du projet, le lien doit se faire a cote du site
+// Modal 1 reduire margin gallery et augmenter la taille de la gallery
+// Modal 2 Reduire espaces entre label et input
+// Alert tous les champs sont obligatoires
