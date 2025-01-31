@@ -256,7 +256,5 @@ buttonValidate.addEventListener("click", () => {
   }
 });
 
-// Le bouton modifie a cote du projet, le lien doit se faire a cote du site
-// Modal 1 reduire margin gallery et augmenter la taille de la gallery
 // Modal 2 Reduire espaces entre label et input
 // Alert tous les champs sont obligatoires
