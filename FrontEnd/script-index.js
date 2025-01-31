@@ -32,7 +32,7 @@ async function projet(gallery) {
 }
 projet(gallery);
 // Réalisation du filtre des travaux : Ajout des filtres pour afficher les travaux par catégorie
-const filter = document.getElementById("portfolioFilter");
+const filter = document.getElementById("projetsFilter");
 async function filterFunction() {
   // Placer les catégories dans un tableau
   let categories = [];
@@ -66,7 +66,7 @@ async function filterFunction() {
 filterFunction();
 //  Fonction pour enlever les classes des autres bouttons
 function buttonRemove() {
-  const filter = document.getElementById("portfolioFilter");
+  const filter = document.getElementById("projetsFilter");
   const buttons = filter.querySelectorAll("button");
   // Prendre tous les bouttons et appliquer la classe
   buttons.forEach((b) => b.classList.remove("buttonFilter"));
