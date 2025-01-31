@@ -129,6 +129,8 @@ const modalAdd = document.querySelector(".modalAdd");
 const modalPictureAdd = document.querySelector(".modalPictureAdd");
 const imagePreview = document.querySelector(".modalAddPictureAdd img");
 const buttonValidate = document.querySelector(".modalAddPictureAddValidate")
+buttonValidate.classList.remove("active")
+
 modalPictureAdd.addEventListener("click", () => {
   modalAdd.classList.toggle("active");
   modalPicture.classList.toggle("active")
@@ -159,7 +161,7 @@ modalAdd.addEventListener("click", (e) => {
   }
 });
 // Preview imageUploader
-const imageUploader = document.querySelector("input");
+const imageUploader = document.getElementById("file");
 const icon = document.querySelector(".modalAddPictureAdd i");
 const label = document.querySelector(".modalAddPictureAdd label[for='file']");
 const message = document.querySelector(".modalAddPictureAdd p");
@@ -210,3 +212,17 @@ async function addCategories() {
   selectCategories.selectedIndex = 0;
 }
 addCategories();
+// Button Validation
+const title = document.getElementById('title')
+
+function checkform(){
+  if (title.value !== ""&& selectCategories.value !== ""&& imageUploader.files.length > 0) {
+    console.log("good boy")
+    buttonValidate.classList.remove("active");
+  }
+}
+title.addEventListener('input', checkform)
+selectCategories.addEventListener('change', checkform)
+imagePreview.addEventListener('change', checkform)
+  
+ 
