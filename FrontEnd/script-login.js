@@ -27,6 +27,6 @@ formConnexion.addEventListener("submit", async function (event) {
     window.location.href = "./index.html";
   } else {
     const errorMessage = document.querySelector("#formulaire p")
-    errorMessage.classList.toggle("active")
+    errorMessage.classList.add("active")
   }
 });

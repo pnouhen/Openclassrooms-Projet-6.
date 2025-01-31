@@ -83,11 +83,13 @@ buttonTous.addEventListener("click", () => {
 const token = localStorage.getItem("authToken");
 const header = document.getElementById("header");
 const headerEdition = document.querySelector(".headerEdition");
+const modeEdition = document.querySelector("#modifier div");
 if (token) {
   headerEdition.classList.toggle("active");
+  modeEdition.classList.toggle("active");
   filter.classList.toggle("active")
-  headerNormal = document.querySelector('headerNormal')
-  headerNormal.style.paddingTop = "20px";
+  headerNormal = document.querySelector('.headerNormal')
+  headerNormal.style.paddingTop = "50px";
   // Loginout
   const loginLink = document.querySelector('a[href="login.html"]');
   const loginItem = loginLink.parentElement;
@@ -96,10 +98,12 @@ if (token) {
     localStorage.removeItem("authToken");
     loginItem.innerHTML = '<a href="login.html">Login</a>';
     headerEdition.classList.remove("active");
+    modeEdition.classList.remove("active");
     filter.classList.remove("active")
+    headerNormal.style.paddingTop = "";
   });
   // Remplir la modalPicture
-  const modeEdition = document.querySelector(".headerEdition");
+  
   const modalPicture = document.querySelector(".modalPicture");
   const modalPictureImg = document.getElementById("modalPictureImg");
   // Open the modalPicture

@@ -15,16 +15,11 @@
   justify-content: center;
   gap: 15px;
   background-color: black;
+  font-size: 25px;
+  color: #ffffff;
 }
 .headerEdition, #projetsFilter.active {
   display: none;
-}
-.fa-pen-to-square,
-.headerEdition p {
-  color: #ffffff;
-}
-.headerEdition p {
-  font-size: 16px;
 }
 /* Introduction */
 #introduction {
@@ -51,9 +46,44 @@
   margin-bottom: 0.5em;
 }
 /* Project */
-#projets h2 {
-  text-align: center;
-  margin-bottom: 1em;
+#modifier {
+ display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 50px;
+}
+#modifier div{
+  display: none;
+}
+
+#modifier div.active{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+}
+#projetsFilter {
+  width: 60%;
+  margin: 0 auto 50px auto;
+  display: flex;
+  justify-content: space-around;
+}
+#projetsFilter button {
+  min-width: 100px;
+  padding: 0 20px 0 20px;
+  height: 37px;
+  border-radius: 60px;
+  border: 1px #1d6154 solid;
+  background-color: transparent;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: "Syne";
+  color: #1d6154;
+}
+
+#projetsFilter button.buttonFilter {
+  background-color: #1d6154;
+  color: #ffffff;
 }
 
 .gallery {
@@ -67,6 +97,7 @@
 .gallery img {
   width: 100%;
 }
+
 /* ModalPicture */
 .modalPicture,
 .modalAdd {
@@ -249,28 +280,4 @@ input[type="file"] {
 }
 .modalAddPictureAddValidate.active {
   background-color: #a7a7a7;
-}
-/* Vu par l'internaute */
-#projetsFilter {
-  width: 60%;
-  margin: 0 auto 2em auto;
-  display: flex;
-  justify-content: space-around;
-}
-#projetsFilter button {
-  min-width: 100px;
-  padding: 0 20px 0 20px;
-  height: 37px;
-  border-radius: 60px;
-  border: 1px #1d6154 solid;
-  background-color: transparent;
-  font-size: 16px;
-  font-weight: 700;
-  font-family: "Syne";
-  color: #1d6154;
-}
-
-#projetsFilter button.buttonFilter {
-  background-color: #1d6154;
-  color: #ffffff;
 }
