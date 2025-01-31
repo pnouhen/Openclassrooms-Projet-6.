@@ -85,6 +85,7 @@ const header = document.getElementById("header");
 const headerEdition = document.querySelector(".headerEdition");
 if (token) {
   headerEdition.classList.toggle("active");
+  filter.classList.toggle("active")
   // Loginout
   const loginLink = document.querySelector('a[href="login.html"]');
   const loginItem = loginLink.parentElement;
@@ -93,6 +94,7 @@ if (token) {
     localStorage.removeItem("authToken");
     loginItem.innerHTML = '<a href="login.html">Login</a>';
     headerEdition.classList.remove("active");
+    filter.classList.remove("active")
   });
   // Remplir la modalPicture
   const modeEdition = document.querySelector(".headerEdition");
@@ -236,3 +238,6 @@ buttonValidate.addEventListener("click", () =>{
     imagePreview.src = ""
     modalAddPictureAddFill()
 })
+
+// A faire
+// Validation que quand c'est vert et fermer la modale

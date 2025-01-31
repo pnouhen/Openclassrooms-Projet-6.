@@ -13,7 +13,7 @@
   gap: 15px;
   background-color: black;
 }
-.headerEdition {
+.headerEdition, #portfolioFilter.active {
   display: none;
 }
 .fa-pen-to-square,
