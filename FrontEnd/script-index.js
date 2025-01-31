@@ -154,40 +154,35 @@ modalAdd.addEventListener("click", (e) => {
     // For modalAddPictureAdd reset
     icon.classList.remove("active");
     label.classList.remove("active");
-    imageUploader.classList.remove("active");
+    uploadField.classList.remove("active");
     message.classList.remove("active");
     imagePreview.src = "";
     imagePreview.classList.remove("active");
   }
 });
-// Preview imageUploader
-const imageUploader = document.getElementById("file");
+// Preview uploadField
+const uploadField = document.getElementById("file");
 const icon = document.querySelector(".modalAddPictureAdd i");
 const label = document.querySelector(".modalAddPictureAdd label[for='file']");
 const message = document.querySelector(".modalAddPictureAdd p");
-function showImage() {
-  if (imageUploader.files.length > 0) {
+uploadField.addEventListener("change",() => {
+  const file = uploadField.files[0];
+  if (file && file.size <= 4 * 1024 * 1024) {
     let reader = new FileReader();
-    reader.readAsDataURL(imageUploader.files[0]);
+    reader.readAsDataURL(uploadField.files[0]);
     reader.onload = function (e) {
       imagePreview.src = e.target.result;
     };
     imagePreview.classList.remove("active");
     icon.classList.toggle("active");
     label.classList.toggle("active");
-    imageUploader.classList.toggle("active");
+    uploadField.classList.toggle("active");
     message.classList.toggle("active");
-  }
-}
-imageUploader.addEventListener("change", showImage);
-// Validation taille de l'image
-const uploadField = document.getElementById("file");
-uploadField.onchange = function () {
-  if (this.files[0].size > 4 * 1024 * 1024) {
-    alert("Le fichier est  supérieur à 4Mo");
+  } else {
+     alert("Le fichier est trop grand, il dépasse 4 Mo.");
     this.value = "";
-  }
-};
+  } 
+  });
 // Add categories in select
 const selectCategories = document.getElementById("categorie");
 async function addCategories() {
@@ -213,13 +208,13 @@ async function addCategories() {
 }
 addCategories();
 // Button Validation
+// Change color
 const title = document.getElementById("title");
-
 function checkform() {
   if (
     title.value.trim() !== "" &&
     selectCategories.value.trim() !== "" &&
-    imageUploader.files.length
+    uploadField.files.length
   ) {
     buttonValidate.classList.remove("active");
   } else {
@@ -228,4 +223,11 @@ function checkform() {
 }
 title.addEventListener("input", checkform);
 selectCategories.addEventListener("change", checkform);
-imageUploader.addEventListener("change", checkform);
+uploadField.addEventListener("change", checkform);
+// Reset
+buttonValidate.addEventListener("click", () =>{
+  console.log("Good boy")
+  title.value === ""
+    selectCategories.value === ""
+    uploadField.files.length === 0
+})
