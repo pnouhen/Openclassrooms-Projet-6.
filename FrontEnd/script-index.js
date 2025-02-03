@@ -103,7 +103,6 @@ if (token) {
     headerNormal.style.paddingTop = "";
   });
   // Remplir la modalPicture
-  
   const modalPicture = document.querySelector(".modalPicture");
   const modalPictureImg = document.getElementById("modalPictureImg");
   // Open the modalPicture
@@ -165,11 +164,7 @@ modalAdd.addEventListener("click", (e) => {
     buttonValidate.classList.toggle("active")
     // For modalAddPictureAdd reset
     imagePreview.src = "";
-    icon.classList.remove("active");
-    label.classList.remove("active");
-    uploadField.classList.remove("active");
-    message.classList.remove("active");
-    imagePreview.classList.remove("active");
+    modalAddPictureAddFill()
   }
 });
 // Preview uploadField
@@ -232,21 +227,17 @@ function checkform() {
     uploadField.files.length
   ) {
     buttonValidate.classList.remove("active");
-  } else {
-    buttonValidate.classList.add("active");
-   
+    return true
   }
+    buttonValidate.classList.add("active");
+    return false
 }
 title.addEventListener("input", checkform);
 selectCategories.addEventListener("change", checkform);
 uploadField.addEventListener("change", checkform);
 // Action
 buttonValidate.addEventListener("click", () => {
-  if (
-    title.value.trim() !== "" &&
-    selectCategories.value.trim() !== "" &&
-    uploadField.files.length > 0
-  ) {
+  if (checkform()){
     title.value = "";
   selectCategories.value = "";
   uploadField.value = "";

@@ -23,7 +23,6 @@ formConnexion.addEventListener("submit", async function (event) {
   // Boucle pour la connexion
   if (replogin.status === 200) {
     localStorage.setItem("authToken", reploginData.token);
-    const storedToken = localStorage.getItem("authToken");
     window.location.href = "./index.html";
   } else {
     const errorMessage = document.querySelector("#formulaire p")
