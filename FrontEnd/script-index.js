@@ -10,9 +10,10 @@ async function apiWorks() {
 // Association de la div
 const gallery = document.getElementById("gallery");
 // Function for fill the gallery
-function galleryFill(gallery, fill) {
+function galleryFill(gallery, fill, i) {
   // Figure in Gallery
   const figure = document.createElement("figure");
+  figure.id = works[i].id
   gallery.appendChild(figure);
   // Image
   const img = document.createElement("img");
@@ -25,9 +26,11 @@ function galleryFill(gallery, fill) {
 }
 //  Récupération des travaux depuis le back-end
 async function projet(gallery) {
+  let i = 0
   const projetTableau = await apiWorks();
   projetTableau.forEach((item) => {
-    galleryFill(gallery, item);
+    galleryFill(gallery, item, i);
+   i++
   });
 }
 projet(gallery);
@@ -150,7 +153,6 @@ function modalAddClose(){
   modalAdd.classList.toggle("active");
     modalPicture.classList.toggle("active");
     modalAddFormulaire.reset();
-    
 }
 modalAdd.addEventListener("click", (e) => {
   if (
