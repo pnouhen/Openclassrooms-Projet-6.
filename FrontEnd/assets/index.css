@@ -156,7 +156,7 @@
 .fa-arrow-left {
   width: 24px;
 }
-#projets h3 {
+h3 {
   width: 100%;
   height: 30px;
   font-size: 26px;
@@ -165,12 +165,8 @@
 }
 #modalPictureImg {
   width: 70%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 5px;
-}
-#modalPictureImg {
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20% 20%;
   margin: 0 auto 2em auto;
 }
 #modalPictureImg,
@@ -181,6 +177,7 @@
 }
 #modalPictureImg figure{
   height: max-content;
+  text-align: center;
 }
 #modalPictureImg img {
   width: 76px;
@@ -205,7 +202,7 @@
 .fa-trash-can {
   position: absolute;
   top: 0;
-  right: 0;
+  right: 5px;
   margin: 5px 5px;
   width: 17px;
   height: 17px;
@@ -226,7 +223,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 20px;
+  gap: 10px;
   margin-bottom: 30px;
 }
 .modalAddFormulaire,
@@ -235,7 +232,7 @@
 }
 
 .modalAddPictureAdd {
-  height: 169px;
+  height: 100%;
   border-radius: 3px;
   background-color: #e8f1f6;
   display: flex;

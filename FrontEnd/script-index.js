@@ -123,11 +123,10 @@ if (token) {
   });
 }
 // Close the modalPicture
-const modalPictureOverlay = document.querySelector(".modalPictureOverlay");
 const modalPictureXmark = document.getElementById("modalPictureXmark");
 const modalPicture = document.querySelector(".modalPicture");
 modalPicture.addEventListener("click", (e) => {
-  if (e.target === modalPictureOverlay || e.target === modalPictureXmark) {
+  if (e.target === modalPicture || e.target === modalPictureXmark) {
     modalPicture.classList.toggle("active");
   }
 });
@@ -145,7 +144,6 @@ modalPictureAdd.addEventListener("click", () => {
 });
 // Close the modalAdd
 const modalAddFormulaire = document.querySelector(".modalAddFormulaire");
-const modalAddOverlay = document.querySelector(".modalAddOverlay");
 const modalAddXmark = document.getElementById("modalAddXmark");
 const fArrowLeft = document.querySelector(".fa-arrow-left");
 function modalAddClose(){
@@ -156,7 +154,7 @@ function modalAddClose(){
 }
 modalAdd.addEventListener("click", (e) => {
   if (
-    e.target === modalAddOverlay ||
+    e.target === modalAdd ||
     e.target === modalAddXmark ||
     e.target === fArrowLeft
   ) {
