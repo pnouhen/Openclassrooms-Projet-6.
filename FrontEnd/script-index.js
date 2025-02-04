@@ -13,7 +13,7 @@ const gallery = document.getElementById("gallery");
 function galleryFill(gallery, fill, i) {
   // Figure in Gallery
   const figure = document.createElement("figure");
-  figure.id = works[i].id
+  figure.id = works[i].id;
   gallery.appendChild(figure);
   // Image
   const img = document.createElement("img");
@@ -26,11 +26,11 @@ function galleryFill(gallery, fill, i) {
 }
 //  Récupération des travaux depuis le back-end
 async function projet(gallery) {
-  let i = 0
+  let i = 0;
   const projetTableau = await apiWorks();
   projetTableau.forEach((item) => {
     galleryFill(gallery, item, i);
-   i++
+    i++;
   });
 }
 projet(gallery);
@@ -90,8 +90,8 @@ const modeEdition = document.querySelector("#modifier div");
 if (token) {
   headerEdition.classList.toggle("active");
   modeEdition.classList.toggle("active");
-  filter.classList.toggle("active")
-  headerNormal = document.querySelector('.headerNormal')
+  filter.classList.toggle("active");
+  headerNormal = document.querySelector(".headerNormal");
   headerNormal.style.paddingTop = "50px";
   // Loginout
   const loginLink = document.querySelector('a[href="login.html"]');
@@ -102,7 +102,7 @@ if (token) {
     loginItem.innerHTML = '<a href="login.html">Login</a>';
     headerEdition.classList.remove("active");
     modeEdition.classList.remove("active");
-    filter.classList.remove("active")
+    filter.classList.remove("active");
     headerNormal.style.paddingTop = "";
   });
   // Remplir la modalPicture
@@ -113,17 +113,56 @@ if (token) {
     modalPicture.classList.toggle("active");
     modalPictureImg.innerHTML = "";
     await projet(modalPictureImg);
-    // Mise en place de la poubelle
-    const modalPictureFigures = document.querySelectorAll(
-      "#modalPictureImg figure"
-    );
+  
+    // Récupération des figures dans le modal et dans la galerie
+    const modalPictureFigures = document.querySelectorAll("#modalPictureImg figure");
+  // Create trash
+    let i = 1;
     modalPictureFigures.forEach((figure) => {
       const trash = document.createElement("i");
       figure.appendChild(trash);
       trash.classList.add("fa-solid", "fa-trash-can");
       figure.style.position = "relative";
+      trash.id = i;
+      i++;
+// Remove figure
+trash.addEventListener("click", async function () {
+  const figureId = figure.id; // On suppose que "figure" est bien défini quelque part
+
+  try {
+      const response = await fetch(
+          `http://localhost:5678/api/works/${figureId}`,
+          {
+              method: "DELETE",
+              headers: {
+                  Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+              },
+          }
+      );  
+
+      if (!response.ok) {
+          console.log("Erreur lors de la suppression");
+      } else {
+          // Suppression de l'élément dans la modale
+          figure.remove();
+
+          // Recherche et suppression de l'élément correspondant dans la galerie
+          const galleryFigure = document.querySelector(`#gallery figure[id="${figureId}"]`);
+          if (galleryFigure) {
+              galleryFigure.remove(); // Suppression de la figure dans la galerie
+          }
+
+          console.log("Élément supprimé avec succès de la modale et de la galerie");
+      }
+  } catch (error) {
+      console.log("Erreur réseau ou autre problème", error);
+  }
+});
+
     });
   });
+  
+  
 }
 // Close the modalPicture
 const modalPictureXmark = document.getElementById("modalPictureXmark");
@@ -143,16 +182,16 @@ modalPictureAdd.addEventListener("click", () => {
   modalAdd.classList.toggle("active");
   modalPicture.classList.toggle("active");
   imagePreview.classList.toggle("active");
-  buttonValidate.classList.toggle("active")
+  buttonValidate.classList.toggle("active");
 });
 // Close the modalAdd
 const modalAddFormulaire = document.querySelector(".modalAddFormulaire");
 const modalAddXmark = document.getElementById("modalAddXmark");
 const fArrowLeft = document.querySelector(".fa-arrow-left");
-function modalAddClose(){
+function modalAddClose() {
   modalAdd.classList.toggle("active");
-    modalPicture.classList.toggle("active");
-    modalAddFormulaire.reset();
+  modalPicture.classList.toggle("active");
+  modalAddFormulaire.reset();
 }
 modalAdd.addEventListener("click", (e) => {
   if (
@@ -160,11 +199,11 @@ modalAdd.addEventListener("click", (e) => {
     e.target === modalAddXmark ||
     e.target === fArrowLeft
   ) {
-    modalAddClose()
-    buttonValidate.classList.toggle("active")
+    modalAddClose();
+    buttonValidate.classList.toggle("active");
     // For modalAddPictureAdd reset
     imagePreview.src = "";
-    modalAddPictureAddFill()
+    modalAddPictureAddFill();
   }
 });
 // Preview uploadField
@@ -172,14 +211,14 @@ const uploadField = document.getElementById("file");
 const icon = document.querySelector(".modalAddPictureAdd i");
 const label = document.querySelector(".modalAddPictureAdd label[for='file']");
 const message = document.querySelector(".modalAddPictureAdd p");
-function modalAddPictureAddFill(){
+function modalAddPictureAddFill() {
   imagePreview.classList.toggle("active");
-    icon.classList.toggle("active");
-    label.classList.toggle("active");
-    uploadField.classList.toggle("active");
-    message.classList.toggle("active");
+  icon.classList.toggle("active");
+  label.classList.toggle("active");
+  uploadField.classList.toggle("active");
+  message.classList.toggle("active");
 }
-uploadField.addEventListener("change",() => {
+uploadField.addEventListener("change", () => {
   const file = uploadField.files[0];
   if (file && file.size <= 4 * 1024 * 1024) {
     let reader = new FileReader();
@@ -187,12 +226,12 @@ uploadField.addEventListener("change",() => {
     reader.onload = function (e) {
       imagePreview.src = e.target.result;
     };
-    modalAddPictureAddFill()
+    modalAddPictureAddFill();
   } else {
-     alert("Le fichier est trop grand, il dépasse 4 Mo.");
+    alert("Le fichier est trop grand, il dépasse 4 Mo.");
     this.value = "";
-  } 
-  });
+  }
+});
 // Add categories in select
 const selectCategories = document.getElementById("categorie");
 async function addCategories() {
@@ -227,25 +266,25 @@ function checkform() {
     uploadField.files.length
   ) {
     buttonValidate.classList.remove("active");
-    return true
+    return true;
   }
-    buttonValidate.classList.add("active");
-    return false
+  buttonValidate.classList.add("active");
+  return false;
 }
 title.addEventListener("input", checkform);
 selectCategories.addEventListener("change", checkform);
 uploadField.addEventListener("change", checkform);
 // Action
 buttonValidate.addEventListener("click", () => {
-  if (checkform()){
+  if (checkform()) {
     title.value = "";
-  selectCategories.value = "";
-  uploadField.value = "";
-  imagePreview.src = "";
-  modalAddClose();
-  modalAddPictureAddFill();
-  imagePreview.classList.toggle('active') 
-  } else{
+    selectCategories.value = "";
+    uploadField.value = "";
+    imagePreview.src = "";
+    modalAddClose();
+    modalAddPictureAddFill();
+    imagePreview.classList.toggle("active");
+  } else {
     alert("Tous les champs doivent être remplis");
   }
 });
