@@ -177,8 +177,15 @@ const buttonValidate = document.querySelector(".modalAddPictureAddValidate");
 modalPictureAdd.addEventListener("click", () => {
   modalAdd.classList.toggle("active");
   modalPicture.classList.toggle("active");
-  imagePreview.classList.toggle("active");
   buttonValidate.classList.toggle("active");
+  icon.classList.remove("active")
+  label.classList.remove("active")
+  message.classList.remove("active")
+  imagePreview.classList.remove("active")
+  title.value = "";
+    selectCategories.value = "";
+    uploadField.value = "";
+    imagePreview.src = "";
 });
 // Close the modalAdd
 const modalAddFormulaire = document.querySelector(".modalAddFormulaire");
@@ -187,7 +194,6 @@ const fArrowLeft = document.querySelector(".fa-arrow-left");
 function modalAddClose() {
   modalAdd.classList.toggle("active");
   modalPicture.classList.toggle("active");
-  modalAddFormulaire.reset();
 }
 modalAdd.addEventListener("click", (e) => {
   if (
@@ -196,10 +202,10 @@ modalAdd.addEventListener("click", (e) => {
     e.target === fArrowLeft
   ) {
     modalAddClose();
+    modalAddFormulaire.reset();
     buttonValidate.classList.toggle("active");
     // For modalAddPictureAdd reset
     imagePreview.src = "";
-    modalAddPictureAddFill();
   }
 });
 // Preview uploadField
@@ -207,25 +213,21 @@ const uploadField = document.getElementById("file");
 const icon = document.querySelector(".modalAddPictureAdd i");
 const label = document.querySelector(".modalAddPictureAdd label[for='file']");
 const message = document.querySelector(".modalAddPictureAdd p");
-function modalAddPictureAddFill() {
-  imagePreview.classList.toggle("active");
-  icon.classList.toggle("active");
-  label.classList.toggle("active");
-  uploadField.classList.toggle("active");
-  message.classList.toggle("active");
-}
 uploadField.addEventListener("change", () => {
-  const file = uploadField.files[0];
-  if (file && file.size <= 4 * 1024 * 1024) {
+  const file = uploadField.files[0]; 
+  if (file && file.size <= 4 * 1024 * 1024) { 
     let reader = new FileReader();
     reader.readAsDataURL(uploadField.files[0]);
     reader.onload = function (e) {
       imagePreview.src = e.target.result;
+      imagePreview.classList.add("active");
+      icon.classList.toggle("active")
+      label.classList.toggle("active")
+      message.classList.toggle("active")
     };
-    modalAddPictureAddFill();
   } else {
     alert("Le fichier est trop grand, il dépasse 4 Mo.");
-    this.value = "";
+    uploadField.value = ""; 
   }
 });
 // Add categories in select
@@ -270,19 +272,53 @@ function checkform() {
 title.addEventListener("input", checkform);
 selectCategories.addEventListener("change", checkform);
 uploadField.addEventListener("change", checkform);
-// Action en Add
-buttonValidate.addEventListener("click", () => {
+// postFigure
+async function postFigure(data) {
+  try {
+    const token = localStorage.getItem("authToken");
+
+    if (!token) {
+      console.error('Aucun jeton trouvé dans le localStorage');
+      alert('Jeton d\'authentification manquant.');
+      return;
+    }
+
+    const response = await fetch('http://localhost:5678/api/works', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      },
+      body: formData,
+    });
+
+    if (response.ok) {
+      const responseData = await response.json();
+      console.log('Réponse de l\'API :', responseData);
+      alert('Œuvre créée avec succès!');
+    } else {
+      const errorResponse = await response.json();
+      console.error('Erreur lors de la création:', errorResponse); // Affiche l'erreur détaillée
+      alert('Erreur lors de la création de l\'œuvre : ' + errorResponse.error.message); // Affiche le message d'erreur
+    }
+  } catch (error) {
+    console.error('Erreur de réseau ou autre:', error);
+    alert('Erreur de réseau.');
+  }
+}
+
+buttonValidate.addEventListener("click", async function() {
   // Back to previous page
   if (checkform()) {
-    title.value = "";
-    selectCategories.value = "";
-    uploadField.value = "";
-    imagePreview.src = "";
-    modalAddClose();
-    modalAddPictureAddFill();
+    modalAddClose()
+    
     imagePreview.classList.toggle("active");
   } else {
     alert("Tous les champs doivent être remplis");
   }
+  // Pass figureData to postFigure
+  // postFigure();
+// Affiche les éléments pour vérifier qu'ils sont récupérés correctement
+console.log(imagePreview);
+console.log(title.value);
+console.log(selectCategories.value);
 });
-console.log(works)
