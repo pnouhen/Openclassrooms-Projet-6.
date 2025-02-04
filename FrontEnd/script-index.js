@@ -242,11 +242,13 @@ async function addCategories() {
   document.getElementById("categorie").selectedIndex = 0;
   const categorieTableau = await apiWorks();
   for (let i = 0; i < categorieTableau.length; i++) {
-    const categoryName = categorieTableau[i].category.name;
-    if (!categories.includes(categoryName)) {
-      categories.push(categoryName);
+    const category = categorieTableau[i].category;
+    const categoryId = category.id;     
+    const categoryName = category.name;
+    if (!categories.includes(categoryId)) {
+      categories.push(categoryId);
       const option = document.createElement("option");
-      option.value = categoryName;
+      option.value = categoryId;
       option.textContent = categoryName;
       selectCategories.appendChild(option);
     }
@@ -271,54 +273,41 @@ function checkform() {
 }
 title.addEventListener("input", checkform);
 selectCategories.addEventListener("change", checkform);
-uploadField.addEventListener("change", checkform);
-// postFigure
-async function postFigure(data) {
-  try {
-    const token = localStorage.getItem("authToken");
-
-    if (!token) {
-      console.error('Aucun jeton trouvé dans le localStorage');
-      alert('Jeton d\'authentification manquant.');
-      return;
-    }
-
-    const response = await fetch('http://localhost:5678/api/works', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-      },
-      body: formData,
-    });
-
-    if (response.ok) {
-      const responseData = await response.json();
-      console.log('Réponse de l\'API :', responseData);
-      alert('Œuvre créée avec succès!');
-    } else {
-      const errorResponse = await response.json();
-      console.error('Erreur lors de la création:', errorResponse); // Affiche l'erreur détaillée
-      alert('Erreur lors de la création de l\'œuvre : ' + errorResponse.error.message); // Affiche le message d'erreur
-    }
-  } catch (error) {
-    console.error('Erreur de réseau ou autre:', error);
-    alert('Erreur de réseau.');
-  }
-}
+uploadField.addEventListener("change", checkform);  
 
 buttonValidate.addEventListener("click", async function() {
-  // Back to previous page
   if (checkform()) {
-    modalAddClose()
+    const formData = new FormData();
+    formData.append("image", uploadField.files[0]);
+    formData.append("title", title.value);
+    formData.append("category", selectCategories.value);
     
-    imagePreview.classList.toggle("active");
-  } else {
-    alert("Tous les champs doivent être remplis");
+    // Affichage des données envoyées
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}:`, value);
+    }
+
+    try {
+      const response = await fetch("http://localhost:5678/api/works", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`
+        },
+        body: formData
+      });
+
+      // Vérification de la réponse
+      if (!response.ok) {
+        const errorDetails = await response.json();  // Convertir la réponse en JSON
+        throw new Error(`Erreur HTTP ! Statut : ${response.status}, Détails : ${JSON.stringify(errorDetails)}`);
+      }
+
+      // Si la requête est réussie
+      console.log('Envoi réussi');
+    } catch (erreur) {
+      // Cette partie capture les erreurs et affiche le message d'erreur
+      console.error("Erreur lors de l'envoi des données:", erreur);
+      alert("Les champs ne sont pas remplis correctement : " + erreur);
+    }
   }
-  // Pass figureData to postFigure
-  // postFigure();
-// Affiche les éléments pour vérifier qu'ils sont récupérés correctement
-console.log(imagePreview);
-console.log(title.value);
-console.log(selectCategories.value);
 });
