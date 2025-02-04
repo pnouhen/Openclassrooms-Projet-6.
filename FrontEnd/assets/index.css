@@ -111,7 +111,7 @@
 .modalPicture.active,
 .modalAdd.active {
   display: block;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;

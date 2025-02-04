@@ -113,10 +113,12 @@ if (token) {
     modalPicture.classList.toggle("active");
     modalPictureImg.innerHTML = "";
     await projet(modalPictureImg);
-  
+
     // Récupération des figures dans le modal et dans la galerie
-    const modalPictureFigures = document.querySelectorAll("#modalPictureImg figure");
-  // Create trash
+    const modalPictureFigures = document.querySelectorAll(
+      "#modalPictureImg figure"
+    );
+    // Create trash
     let i = 1;
     modalPictureFigures.forEach((figure) => {
       const trash = document.createElement("i");
@@ -125,44 +127,38 @@ if (token) {
       figure.style.position = "relative";
       trash.id = i;
       i++;
-// Remove figure
-trash.addEventListener("click", async function () {
-  const figureId = figure.id; // On suppose que "figure" est bien défini quelque part
-
-  try {
-      const response = await fetch(
-          `http://localhost:5678/api/works/${figureId}`,
-          {
+      // Remove figure
+      trash.addEventListener("click", async function () {
+        const figureId = figure.id;
+        try {
+          const response = await fetch(
+            `http://localhost:5678/api/works/${figureId}`,
+            {
               method: "DELETE",
               headers: {
-                  Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+                Authorization: `Bearer ${localStorage.getItem("authToken")}`,
               },
+            }
+          );
+          if (!response.ok) {
+            console.log("Erreur lors de la suppression");
+          } else {
+            // Remove element in the modale
+            figure.remove();
+            // Search and Remove the same element in the gallery
+            const galleryFigure = document.querySelector(
+              `#gallery figure[id="${figureId}"]`
+            );
+            if (galleryFigure) {
+              galleryFigure.remove();
+            }
           }
-      );  
-
-      if (!response.ok) {
-          console.log("Erreur lors de la suppression");
-      } else {
-          // Suppression de l'élément dans la modale
-          figure.remove();
-
-          // Recherche et suppression de l'élément correspondant dans la galerie
-          const galleryFigure = document.querySelector(`#gallery figure[id="${figureId}"]`);
-          if (galleryFigure) {
-              galleryFigure.remove(); // Suppression de la figure dans la galerie
-          }
-
-          console.log("Élément supprimé avec succès de la modale et de la galerie");
-      }
-  } catch (error) {
-      console.log("Erreur réseau ou autre problème", error);
-  }
-});
-
+        } catch (error) {
+          console.log("Erreur réseau ou autre problème", error);
+        }
+      });
     });
   });
-  
-  
 }
 // Close the modalPicture
 const modalPictureXmark = document.getElementById("modalPictureXmark");
@@ -274,8 +270,9 @@ function checkform() {
 title.addEventListener("input", checkform);
 selectCategories.addEventListener("change", checkform);
 uploadField.addEventListener("change", checkform);
-// Action
+// Action en Add
 buttonValidate.addEventListener("click", () => {
+  // Back to previous page
   if (checkform()) {
     title.value = "";
     selectCategories.value = "";
@@ -288,3 +285,4 @@ buttonValidate.addEventListener("click", () => {
     alert("Tous les champs doivent être remplis");
   }
 });
+console.log(works)
