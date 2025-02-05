@@ -236,6 +236,7 @@ h3 {
 
 .modalAddPictureAdd {
  height: 211px;
+ overflow: hidden;
   border-radius: 3px;
   background-color: #e8f1f6;
   display: flex;
@@ -246,6 +247,7 @@ h3 {
 }
 .modalAddPictureAdd img.active {
   display: block;
+  object-fit: cover;
   height: 100%;
 }
 .fa-image {

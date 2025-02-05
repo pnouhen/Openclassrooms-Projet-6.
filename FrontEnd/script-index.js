@@ -128,7 +128,6 @@ async function openModalPicures() {
             },
           }
         );
-
         // Remove element in the modale
         figure.remove();
         // Search and Remove the same element in the gallery
@@ -277,9 +276,13 @@ buttonValidate.addEventListener("click", async function () {
       }
       // Answer is true
       alert("Le formulaire est correctement envoyé");
+      // The fetch is already generated with works[]
+      const newProject = await response.json();
+      works.push(newProject);
       buttonRemoveAll()
       openModalPicures()
       modalAddClose()
+      modalPicture.classList.remove("active");
     } catch (erreur) {
       alert("Les champs ne sont pas remplis correctement : " + erreur);
     }
