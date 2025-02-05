@@ -216,20 +216,34 @@ const label = document.querySelector(".modalAddPictureAdd label[for='file']");
 const message = document.querySelector(".modalAddPictureAdd p");
 uploadField.addEventListener("change", () => {
   const file = uploadField.files[0]; 
-  if (file && file.size <= 4 * 1024 * 1024) { 
-    let reader = new FileReader();
-    reader.readAsDataURL(uploadField.files[0]);
-    reader.onload = function (e) {
-      imagePreview.src = e.target.result;
-      imagePreview.classList.add("active");
-      icon.classList.toggle("active")
-      label.classList.toggle("active")
-      message.classList.toggle("active")
-    };
-  } else {
+  
+  // Vérification de la taille
+  if (file && file.size > 4 * 1024 * 1024) { 
     alert("Le fichier est trop grand, il dépasse 4 Mo.");
-    uploadField.value = ""; 
+    uploadField.value = ""; // Efface la sélection du fichier
+    imagePreview.src = ""; // Efface l'image de prévisualisation
+    return; // Arrête l'exécution de la fonction
   }
+
+  // Vérification du type de fichier
+  const typesValides = ["image/jpeg", "image/png"];
+  if (file && !typesValides.includes(file.type)) {
+    alert("Seuls les fichiers JPG et PNG sont autorisés.");
+    uploadField.value = "";
+    imagePreview.src = "";
+    return;
+  }
+  
+  // Si le fichier est valide, on peut procéder à la prévisualisation
+  let reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = function (e) {
+    imagePreview.src = e.target.result;
+    imagePreview.classList.add("active");
+    icon.classList.toggle("active");
+    label.classList.toggle("active");
+    message.classList.toggle("active");
+  };
 });
 // Add categories in select
 const selectCategories = document.getElementById("categorie");
@@ -309,10 +323,12 @@ modalPictureImg.innerHTML = "";
     trashes()
 gallery.innerHTML = "";
   projet(gallery);
-    } catch (erreur) {
+    }
+    catch (erreur) {
       alert("Les champs ne sont pas remplis correctement : " + erreur);
     }
+  } else{
+      alert("Tous les champs doivent être remplis")
   }
 });
-// tous fichier empecher 
 // Message d'erreur du bouton
