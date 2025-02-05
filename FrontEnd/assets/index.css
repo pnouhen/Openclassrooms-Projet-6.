@@ -22,6 +22,9 @@
 #projetsFilter.active {
   display: none;
 }
+.headerNormal{
+  padding: 0;
+}
 /* Introduction */
 #introduction {
   display: flex;
