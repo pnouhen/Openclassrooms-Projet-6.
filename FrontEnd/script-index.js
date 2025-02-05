@@ -31,8 +31,11 @@ projet(gallery);
 // Filter button with a table
 const filter = document.getElementById("projetsFilter");
 //  Function remove class buttons and gallery
-function buttonRemove() {
+function buttonRemoveAll() {
   gallery.innerHTML = "";
+  projet(gallery);
+}
+function buttonBackgroundColor(){
   const buttons = filter.querySelectorAll("button");
   buttons.forEach((b) => b.classList.remove("buttonFilter"));
 }
@@ -50,7 +53,8 @@ async function filterFunction() {
       filter.appendChild(button);
       // Activation buttons into the table
       button.addEventListener("click", () => {
-        buttonRemove();
+        gallery.innerHTML = "";
+        buttonBackgroundColor();
         for (i = 0; i < filterTableau.length; i++) {
           if (filterTableau[i].category.name === button.textContent) {
             galleryFill(gallery, filterTableau[i]);
@@ -66,8 +70,8 @@ filterFunction();
 // Activation button : Tous
 const buttonTous = document.getElementById("buttonTous");
 buttonTous.addEventListener("click", () => {
-  projet(gallery);
-  buttonRemove();
+  buttonRemoveAll()
+  buttonBackgroundColor();
   buttonTous.classList.add("buttonFilter");
 });
 // Add the edition mode
@@ -96,16 +100,11 @@ if (token) {
     filter.classList.remove("active");
     headerNormal.style.paddingTop = "";
   });
-  // Open the modalPicture
-  modeEdition.addEventListener("click", async () => {
-    modalPicture.classList.toggle("active");
-    modalPictureImg.innerHTML = "";
-    await projet(modalPictureImg);
-    trashes();
-  });
 }
-// Trashes
-function trashes() {
+// Open the modalPicture
+async function openModalPicures() {
+  modalPictureImg.innerHTML = "";
+  await projet(modalPictureImg);
   const modalPF = document.querySelectorAll("#modalPictureImg figure");
   // Create trash
   let i = 1;
@@ -145,6 +144,10 @@ function trashes() {
     });
   });
 }
+modeEdition.addEventListener("click", async () => {
+  modalPicture.classList.toggle("active");
+  openModalPicures();
+});
 // Close the modalPicture
 const modalPictureXmark = document.getElementById("modalPictureXmark");
 modalPicture.addEventListener("click", (e) => {
@@ -176,15 +179,119 @@ modalPictureAdd.addEventListener("click", () => {
   title.value = "";
   selectCategories.value = "";
 });
+// Preview image
+function removeImage(){
+  uploadField.value = ""; 
+  imagePreview.src = "";
+}
+uploadField.addEventListener("change", () => {
+  const file = uploadField.files[0];
+  // Check type and size file
+  if (file && file.size > 4 * 1024 * 1024) {
+    alert("Le fichier est trop grand, il dépasse 4 Mo.");
+    removeImage()
+    return;
+  }
+  const typesValides = ["image/jpeg", "image/png"];
+  if (file && !typesValides.includes(file.type)) {
+    alert("Seuls les fichiers JPG et PNG sont autorisés.");
+    removeImage()
+    return;
+  }
+  // Generate good file
+  let reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = function (e) {
+    imagePreview.src = e.target.result;
+    imagePreview.classList.add("active");
+    icon.classList.toggle("active");
+    label.classList.toggle("active");
+    text.classList.toggle("active");
+  };
+});
+// Add categories in select
+const selectCategories = document.getElementById("categorie");
+async function addCategories() {
+  const firstOption = document.createElement("option");
+  firstOption.value = "";
+  firstOption.textContent = "";
+  selectCategories.prepend(firstOption);
+  document.getElementById("categorie").selectedIndex = 0;
+  let categories = [""];
+  const categorieTableau = await apiWorks();
+  for (let i = 0; i < categorieTableau.length; i++) {
+    const category = categorieTableau[i].category;
+    const categoryId = category.id;
+    const categoryName = category.name;
+    if (!categories.includes(categoryId)) {
+      categories.push(categoryId);
+      const option = document.createElement("option");
+      option.value = categoryId;
+      option.textContent = categoryName;
+      selectCategories.appendChild(option);
+    }
+  }
+  selectCategories.selectedIndex = 0;
+}
+addCategories();
+// Button Validation
+function checkform() {
+  if (
+    title.value.trim() !== "" &&
+    selectCategories.value.trim() !== "" &&
+    uploadField.files.length
+  ) {
+    buttonValidate.classList.remove("active");
+    return true;
+  }
+  buttonValidate.classList.add("active");
+  return false;
+}
+function modalAddClose() {
+  modalAdd.classList.toggle("active");
+  modalPicture.classList.toggle("active");
+}
+buttonValidate.addEventListener("click", async function () {
+  if (checkform()) {
+    // Create for connexion with API
+    const formData = new FormData();
+    formData.append("image", uploadField.files[0]);
+    formData.append("title", title.value);
+    formData.append("category", selectCategories.value);
+    try {
+      const response = await fetch("http://localhost:5678/api/works", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+      // If answer is false, we try to read in JSON
+      if (!response.ok) {
+        const errorDetails = await response.json();
+        throw new Error(
+          `Erreur HTTP ! Statut : ${
+            response.status
+          }, Détails : ${JSON.stringify(errorDetails)}`
+        );
+      }
+      // Answer is true
+      alert("Le formulaire est correctement envoyé");
+      buttonRemoveAll()
+      openModalPicures()
+      modalAddClose()
+    } catch (erreur) {
+      alert("Les champs ne sont pas remplis correctement : " + erreur);
+    }
+  } else {
+    alert("Tous les champs doivent être remplis");
+  }
+});
 // Close the modalAdd
 const modalAddFormulaire = document.querySelector(".modalAddFormulaire");
 const modalAddXmark = document.getElementById("modalAddXmark");
 const fArrowLeft = document.querySelector(".fa-arrow-left");
 const title = document.getElementById("title");
-function modalAddClose() {
-  modalAdd.classList.toggle("active");
-  modalPicture.classList.toggle("active");
-}
 modalAdd.addEventListener("click", (e) => {
   if (
     e.target === modalAdd ||
@@ -203,123 +310,6 @@ modalAdd.addEventListener("click", (e) => {
     }
   }
 });
-// Preview uploadField
-uploadField.addEventListener("change", () => {
-  const file = uploadField.files[0];
-  // Vérification de la taille
-  if (file && file.size > 4 * 1024 * 1024) {
-    alert("Le fichier est trop grand, il dépasse 4 Mo.");
-    uploadField.value = ""; // Efface la sélection du fichier
-    imagePreview.src = ""; // Efface l'image de prévisualisation
-    return; // Arrête l'exécution de la fonction
-  }
-
-  // Vérification du type de fichier
-  const typesValides = ["image/jpeg", "image/png"];
-  if (file && !typesValides.includes(file.type)) {
-    alert("Seuls les fichiers JPG et PNG sont autorisés.");
-    uploadField.value = "";
-    imagePreview.src = "";
-    return;
-  }
-
-  // Si le fichier est valide, on peut procéder à la prévisualisation
-  let reader = new FileReader();
-  reader.readAsDataURL(file);
-  reader.onload = function (e) {
-    imagePreview.src = e.target.result;
-    imagePreview.classList.add("active");
-    icon.classList.toggle("active");
-    label.classList.toggle("active");
-    text.classList.toggle("active");
-  };
-});
-// Add categories in select
-const selectCategories = document.getElementById("categorie");
-async function addCategories() {
-  // Reprise du code pour créer les filtres
-  let categories = [""];
-  const firstOption = document.createElement("option");
-  firstOption.value = "";
-  firstOption.textContent = "";
-  selectCategories.prepend(firstOption);
-  document.getElementById("categorie").selectedIndex = 0;
-  const categorieTableau = await apiWorks();
-  for (let i = 0; i < categorieTableau.length; i++) {
-    const category = categorieTableau[i].category;
-    const categoryId = category.id;
-    const categoryName = category.name;
-    if (!categories.includes(categoryId)) {
-      categories.push(categoryId);
-      const option = document.createElement("option");
-      option.value = categoryId;
-      option.textContent = categoryName;
-      selectCategories.appendChild(option);
-    }
-  }
-  selectCategories.selectedIndex = 0;
-}
-addCategories();
-// Button Validation
-// Change color
-function checkform() {
-  if (
-    title.value.trim() !== "" &&
-    selectCategories.value.trim() !== "" &&
-    uploadField.files.length
-  ) {
-    buttonValidate.classList.remove("active");
-    return true;
-  }
-  buttonValidate.classList.add("active");
-  return false;
-}
 title.addEventListener("input", checkform);
 selectCategories.addEventListener("change", checkform);
 uploadField.addEventListener("change", checkform);
-
-buttonValidate.addEventListener("click", async function () {
-  if (checkform()) {
-    const formData = new FormData();
-    formData.append("image", uploadField.files[0]);
-    formData.append("title", title.value);
-    formData.append("category", selectCategories.value);
-
-    // Affichage des données envoyées
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}:`, value);
-    }
-
-    try {
-      const response = await fetch("http://localhost:5678/api/works", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      });
-
-      // Vérification de la réponse
-      if (!response.ok) {
-        const errorDetails = await response.json(); // Convertir la réponse en JSON
-        throw new Error(
-          `Erreur HTTP ! Statut : ${
-            response.status
-          }, Détails : ${JSON.stringify(errorDetails)}`
-        );
-      }
-      alert("Le formulaire est correctement envoyé");
-      modalAddClose();
-      modalPictureImg.innerHTML = "";
-      await projet(modalPictureImg);
-      trashes();
-      gallery.innerHTML = "";
-      projet(gallery);
-    } catch (erreur) {
-      alert("Les champs ne sont pas remplis correctement : " + erreur);
-    }
-  } else {
-    alert("Tous les champs doivent être remplis");
-  }
-});
-// Revoir ajout automatique
