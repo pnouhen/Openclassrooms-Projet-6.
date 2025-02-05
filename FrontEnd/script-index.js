@@ -87,6 +87,8 @@ const token = localStorage.getItem("authToken");
 const header = document.getElementById("header");
 const headerEdition = document.querySelector(".headerEdition");
 const modeEdition = document.querySelector("#modifier div");
+const modalPicture = document.querySelector(".modalPicture");
+const modalPictureImg = document.getElementById("modalPictureImg");
 if (token) {
   headerEdition.classList.toggle("active");
   modeEdition.classList.toggle("active");
@@ -105,64 +107,63 @@ if (token) {
     filter.classList.remove("active");
     headerNormal.style.paddingTop = "";
   });
-  // Remplir la modalPicture
-  const modalPicture = document.querySelector(".modalPicture");
-  const modalPictureImg = document.getElementById("modalPictureImg");
   // Open the modalPicture
   modeEdition.addEventListener("click", async () => {
     modalPicture.classList.toggle("active");
     modalPictureImg.innerHTML = "";
     await projet(modalPictureImg);
-
-    // Récupération des figures dans le modal et dans la galerie
-    const modalPictureFigures = document.querySelectorAll(
-      "#modalPictureImg figure"
-    );
-    // Create trash
-    let i = 1;
-    modalPictureFigures.forEach((figure) => {
-      const trash = document.createElement("i");
-      figure.appendChild(trash);
-      trash.classList.add("fa-solid", "fa-trash-can");
-      figure.style.position = "relative";
-      trash.id = i;
-      i++;
-      // Remove figure
-      trash.addEventListener("click", async function () {
-        const figureId = figure.id;
-        try {
-          const response = await fetch(
-            `http://localhost:5678/api/works/${figureId}`,
-            {
-              method: "DELETE",
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-              },
-            }
-          );
-          if (!response.ok) {
-            console.log("Erreur lors de la suppression");
-          } else {
-            // Remove element in the modale
-            figure.remove();
-            // Search and Remove the same element in the gallery
-            const galleryFigure = document.querySelector(
-              `#gallery figure[id="${figureId}"]`
-            );
-            if (galleryFigure) {
-              galleryFigure.remove();
-            }
+    trashes()
+  });
+}
+function trashes() {
+  // Récupération des figures dans le modal et dans la galerie
+  const modalPictureFigures = document.querySelectorAll(
+    "#modalPictureImg figure"
+  );
+  // Create trash
+  let i = 1;
+  modalPictureFigures.forEach((figure) => {
+    const trash = document.createElement("i");
+    figure.appendChild(trash);
+    trash.classList.add("fa-solid", "fa-trash-can");
+    figure.style.position = "relative";
+    trash.id = i;
+    i++;
+    // Remove figure
+    trash.addEventListener("click", async function () {
+      const figureId = figure.id;
+      try {
+        const response = await fetch(
+          `http://localhost:5678/api/works/${figureId}`,
+          {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+            },
           }
-        } catch (error) {
-          console.log("Erreur réseau ou autre problème", error);
+        );
+        if (!response.ok) {
+          console.log("Erreur lors de la suppression");
+        } else {
+          // Remove element in the modale
+          figure.remove();
+          // Search and Remove the same element in the gallery
+          const galleryFigure = document.querySelector(
+            `#gallery figure[id="${figureId}"]`
+          );
+          if (galleryFigure) {
+            galleryFigure.remove();
+          }
         }
-      });
+      } catch (error) {
+        console.log("Erreur réseau ou autre problème", error);
+      }
     });
   });
 }
+
 // Close the modalPicture
 const modalPictureXmark = document.getElementById("modalPictureXmark");
-const modalPicture = document.querySelector(".modalPicture");
 modalPicture.addEventListener("click", (e) => {
   if (e.target === modalPicture || e.target === modalPictureXmark) {
     modalPicture.classList.toggle("active");
@@ -301,13 +302,17 @@ buttonValidate.addEventListener("click", async function() {
         const errorDetails = await response.json();  // Convertir la réponse en JSON
         throw new Error(`Erreur HTTP ! Statut : ${response.status}, Détails : ${JSON.stringify(errorDetails)}`);
       }
-
-      // Si la requête est réussie
-      console.log('Envoi réussi');
+alert("Le formulaire est correctement envoyé")
+modalAddClose()
+modalPictureImg.innerHTML = "";
+    await projet(modalPictureImg);
+    trashes()
+gallery.innerHTML = "";
+  projet(gallery);
     } catch (erreur) {
-      // Cette partie capture les erreurs et affiche le message d'erreur
-      console.error("Erreur lors de l'envoi des données:", erreur);
       alert("Les champs ne sont pas remplis correctement : " + erreur);
     }
   }
 });
+// tous fichier empecher 
+// Message d'erreur du bouton
