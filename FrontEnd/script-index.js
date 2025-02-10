@@ -1,11 +1,19 @@
 // Call the API
 let works = [];
+let categories = [];
 async function apiWorks() {
   if (works.length === 0) {
     const tableauWorks = await fetch("http://localhost:5678/api/works");
     works = await tableauWorks.json();
   }
   return works;
+}
+async function apiCategories() {
+  if (categories.length === 0) {
+    const tableauCategories = await fetch("http://localhost:5678/api/categories");
+    categories = await tableauCategories.json();
+  }
+  return categories;
 }
 // Function for fill the gallery
 const gallery = document.getElementById("gallery");
@@ -107,15 +115,12 @@ async function openModalPicures() {
   await projet(modalPictureImg);
   const modalPF = document.querySelectorAll("#modalPictureImg figure");
   // Create trash
-  let i = 1;
   modalPF.forEach((figure) => {
     const trash = document.createElement("i");
     figure.appendChild(trash);
     trash.classList.add("fa-solid", "fa-trash-can");
     figure.style.position = "relative";
-    trash.id = i;
-    i++;
-    // Remove figure
+    // Delete figure
     trash.addEventListener("click", async function () {
       const figureId = figure.id;
       try {
@@ -217,9 +222,10 @@ async function addCategories() {
   selectCategories.prepend(firstOption);
   document.getElementById("categorie").selectedIndex = 0;
   let categories = [""];
-  const categorieTableau = await apiWorks();
+  const categorieTableau = await apiCategories();
+  console.log(categorieTableau)
   for (let i = 0; i < categorieTableau.length; i++) {
-    const category = categorieTableau[i].category;
+    const category = categorieTableau[i];
     const categoryId = category.id;
     const categoryName = category.name;
     if (!categories.includes(categoryId)) {
